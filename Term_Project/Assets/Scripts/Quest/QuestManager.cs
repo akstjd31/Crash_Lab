@@ -16,6 +16,7 @@ public class QuestManager : MonoBehaviour
     public static Dictionary<int, QuestData> questList;
     public Text questNameText, itemText;
     public GameObject[] questItem;
+    public UnityEngine.AI.NavMeshAgent rabbitAgent;
     public bool questItemRecall = false;
     public static bool questClear = false;
     public static bool gatherArea = false;
@@ -23,7 +24,7 @@ public class QuestManager : MonoBehaviour
     void Awake() // 초기화
     {
         questList = new Dictionary<int, QuestData>();
-        questId = 0;
+        questId = 1;
         GenerateData();
     }
 
@@ -106,13 +107,13 @@ public class QuestManager : MonoBehaviour
             case (int)QuestID.CoinQuest:
                 itemText.text = "현재 획득한 코인 갯수 : " + coinCnt;
                 if (!questItemRecall)
-                    CoinQuest();
+                    SpawnCoin();
 
                 questItemRecall = true;
                 break;
             case (int)QuestID.FindRabbit:
                 if (!questItemRecall)
-                    FindRabbit();
+                    SpawnRabbit();
 
                 questItemRecall = true;
                 break;
@@ -120,7 +121,7 @@ public class QuestManager : MonoBehaviour
             case (int)QuestID.FlowerCollection:
                 itemText.text = "현재 채집한 해바라기 갯수 : " + flowerCnt;
                 if (!questItemRecall)
-                    FlowerCollection();
+                    SpawnFlower();
 
                 questItemRecall = true;
                 break;
@@ -128,7 +129,7 @@ public class QuestManager : MonoBehaviour
         }
     }
 
-    void CoinQuest() // 코인 퀘스트
+    void SpawnCoin() // 코인 퀘스트
     {
         int maxCoin = 10;
         for(int i = 0; i < maxCoin; i++)
@@ -137,12 +138,13 @@ public class QuestManager : MonoBehaviour
         }
     }
 
-    void FindRabbit()
+    void SpawnRabbit()
     {
-        Instantiate(questItem[questId], new Vector3(Random.Range(-15, 15), 1, Random.Range(-15, 15)), Quaternion.identity);
+        Instantiate(questItem[questId], new Vector3(Random.Range(-15, 15), 0.5f, Random.Range(-15, 15)), Quaternion.identity);
+        if (QuestRabbit.isSafePos) rabbitAgent.SetDestination(QuestRabbit.randPos);
     }
 
-    void FlowerCollection()
+    void SpawnFlower()
     {
         Instantiate(questItem[questId], new Vector3(Random.Range(-15, 15), 1, Random.Range(-15, 15)), Quaternion.identity);
     }

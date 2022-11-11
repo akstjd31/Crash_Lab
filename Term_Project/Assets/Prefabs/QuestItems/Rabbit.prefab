@@ -77,6 +77,8 @@ GameObject:
   - component: {fileID: 3183496276668519244}
   - component: {fileID: 3010117174312246618}
   - component: {fileID: 949020721062810971}
+  - component: {fileID: 4486029291236859687}
+  - component: {fileID: -5144592766598527841}
   m_Layer: 0
   m_Name: Rabbit
   m_TagString: Untagged
@@ -147,6 +149,44 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bf013a13798f7b4a98f00e3bbd4f7f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!195 &4486029291236859687
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3276456305948102716}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!54 &-5144592766598527841
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3276456305948102716}
+  serializedVersion: 2
+  m_Mass: 0.5
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &3276456358797424362
 GameObject:
   m_ObjectHideFlags: 0

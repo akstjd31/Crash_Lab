@@ -14,12 +14,12 @@ public class Camera : MonoBehaviour
     Vector3 TargetPos;
     void FixedUpdate()
     {
-        TargetPos = new Vector3( // ÇØ´ç ÇÃ·¹ÀÌ¾îÀÇ ÁÂÇ¥¸¦ ±âÁØÀ¸·Î (0, 10, -10)À» ÇÑ Ä«¸Þ¶ó ÁÂÇ¥¸¦ ¼³Á¤
+        TargetPos = new Vector3( // ï¿½Ø´ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½ ï¿½ï¿½Ç¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (0, 10, -10)ï¿½ï¿½ ï¿½ï¿½ Ä«ï¿½Þ¶ï¿½ ï¿½ï¿½Ç¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             Target.transform.position.x + offsetX,
             Target.transform.position.y + offsetY,
             Target.transform.position.z + offsetZ
             );
 
-        transform.position = Vector3.Lerp(transform.position, TargetPos, Time.deltaTime * CameraSpeed); // Lerp = ¿òÁ÷ÀÓÀ» ºÎµå·´°Ô ³ªÅ¸³»±â.
+        transform.position = Vector3.Lerp(transform.position, TargetPos, Time.deltaTime * CameraSpeed); // Lerp = ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îµå·´ï¿½ï¿½ ï¿½ï¿½Å¸ï¿½ï¿½ï¿½ï¿½.
     }
 }

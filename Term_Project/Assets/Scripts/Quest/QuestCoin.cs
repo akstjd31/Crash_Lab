@@ -4,29 +4,29 @@ using UnityEngine;
 
 public class QuestCoin : MonoBehaviour
 {
-    GameObject player;
     float rotSpeed = 20f;
-    // Start is called before the first frame update
-    void Start()
-    {
-        player = GameObject.FindGameObjectWithTag("Player");
-    }
-
     // Update is called once per frame
     void Update()
     {
         RotCoin();
     }
 
-    private void OnCollisionEnter(Collision col)
+    private void OnTriggerEnter(Collider other)
     {
-        if (player == col.gameObject)
+        if (other.gameObject.tag == "Player")
         {
             Destroy(this.gameObject);
             QuestManager.coinCnt++;
         }
     }
 
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.tag == "Obstacle")
+        {
+            this.gameObject.transform.position = new Vector3(Random.Range(-15, 15), 2, Random.Range(-15, 15));
+        }
+    }
     void RotCoin()
     {
         transform.Rotate(Vector3.up * rotSpeed * Time.deltaTime);

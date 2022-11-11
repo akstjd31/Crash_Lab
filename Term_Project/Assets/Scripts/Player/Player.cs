@@ -30,7 +30,7 @@ public class Player : MonoBehaviour
             Movement();
     }
 
-    private void Movement() // Ä³¸¯ÅÍ ÀÌµ¿
+    private void Movement() // Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½
     {
         h = Input.GetAxis("Horizontal");
         v = Input.GetAxis("Vertical");
