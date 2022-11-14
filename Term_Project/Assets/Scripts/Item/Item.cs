@@ -16,10 +16,10 @@ public class Item : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-       if (other.gameObject.tag == "Player") // ?¡À????? ?תפ??? ??? ??????? ???? ?? ?????? ??? ???
+       if (other.gameObject.tag == "Player")
         {
             ItemManager.UsingItem = true;
-            ItemManager.itemName = gameObject.name.Substring(0, gameObject.name.Length - 7); // ??? ??????? ???? ?? (clone) ???? ????
+            ItemManager.itemName = gameObject.name.Substring(0, gameObject.name.Length - 7); 
 
             if (gameObject.tag == "Food") ItemManager.foodCnt--;
             else ItemManager.itemCnt--;
@@ -33,7 +33,7 @@ public class Item : MonoBehaviour
     {
         if (other.gameObject.tag == "Obstacle")
         {
-            this.transform.position = new Vector3(Random.Range(-15, 15), 1, Random.Range(-15, 15));
+            this.transform.position = new Vector3(Random.Range(-110, 105), 4, Random.Range(-68, 100));
         }
     }
 }

@@ -140,8 +140,7 @@ public class QuestManager : MonoBehaviour
 
     void SpawnRabbit()
     {
-        Instantiate(questItem[questId], new Vector3(Random.Range(-15, 15), 0.5f, Random.Range(-15, 15)), Quaternion.identity);
-        if (QuestRabbit.isSafePos) rabbitAgent.SetDestination(QuestRabbit.randPos);
+        Instantiate(questItem[questId], new Vector3(Random.Range(-110, 105), 4, Random.Range(-68, 100)), Quaternion.identity);
     }
 
     void SpawnFlower()

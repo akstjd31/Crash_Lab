@@ -7,13 +7,13 @@ public class QuestRabbit : MonoBehaviour
     float waitTime = 0.0f; // 이동시간, 대기시간
     float lookAtObsTime = 0.0f;
     //float moveSpeed = 6f;  // 움직이는 속도
-    float rotateSpeed = 10.0f; // 회전속도
+    //float rotateSpeed = 10.0f; // 회전속도
     bool waitForSecond = false; // 대기상태인지 아닌지 체크
     public static bool isSafePos = false;
     Animator rabbitAnim;
 
     public static Vector3 randPos;
-    Vector3 rabbitPos;
+    Vector3  rabbitPos;
     // Start is called before the first frame update
     void Awake() // 초기화
     {
@@ -25,8 +25,9 @@ public class QuestRabbit : MonoBehaviour
     {
         lookAtObsTime = 0.0f;
         waitTime = 0.0f;
-        randPos = new Vector3(Random.Range(-15, 15), transform.position.y, Random.Range(-15, 15));
+        randPos = new Vector3(Random.Range(-55, 80), transform.position.y, Random.Range(-70, 110));
         waitForSecond = false;
+
     }
 
     // Update is called once per frame
@@ -39,11 +40,16 @@ public class QuestRabbit : MonoBehaviour
         가까이 있으면서 만약 장애물과 맞닿은 시간이 1.5초 이상이 되면 토끼가 멈추고 새로운 좌표를 가져온다. */
         if (Mathf.Abs(transform.position.x - randPos.x) <= 1
         && Mathf.Abs(transform.position.z - randPos.z) <= 1
-        || lookAtObsTime > 1.5f)
+        || lookAtObsTime > 1.0f)
         {
             Wait();
-            if(waitTime > 1.5f) Settings();
+            if(waitTime > 1.0f) Settings();
         }
+    }
+
+    void LateUpdate()
+    {
+        isSafePos = true;
     }
 
     /* 토끼가 멈춰선다. */
@@ -58,26 +64,25 @@ public class QuestRabbit : MonoBehaviour
     void Movement()
     {
         rabbitPos = transform.position;
-        Vector3 vDist = randPos - rabbitPos;
-        Vector3 vDir = vDist.normalized;
+/*        Vector3 vDist = randPos - rabbitPos;
+        Vector3 vDir = vDist.normalized;*/
 
         rabbitAnim.SetBool("isRun", true);
 
-        if (!(Mathf.Abs(transform.position.x - randPos.x) <= 1 && Mathf.Abs(transform.position.z - randPos.z) <= 1))
-        {
-            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(vDir), Time.deltaTime * rotateSpeed);
-        }  
+        if (!waitForSecond)
+            this.transform.LookAt(randPos);
     }
 
     /* 현재 토끼가 장애물에 맞닿는 시간을 측정 */
-    private void CheckGoalPos()
+    void CheckGoalPos()
     {
         RaycastHit hit;
         Vector3 fwd = transform.TransformDirection(Vector3.forward);
 
         if (Physics.Raycast(rabbitPos, fwd, out hit, 2) != false
-                            && hit.collider.gameObject.tag == "Obstacle") {
-                lookAtObsTime += Time.deltaTime;
+                            && hit.collider.gameObject.tag == "Obstacle")
+        {
+            lookAtObsTime += Time.deltaTime;
         }
     }
 
@@ -93,7 +98,7 @@ public class QuestRabbit : MonoBehaviour
         /* 토끼의 생성위치가 장애물이 없는 안전한 위치인지 확인 */
         if (col.gameObject.tag == "Obstacle" && !isSafePos)
         {
-            this.gameObject.transform.position = new Vector3(Random.Range(-15, 15), 1, Random.Range(-15, 15));
+            gameObject.transform.position = new Vector3(Random.Range(-110, 105), 4, Random.Range(-68, 100));
         } else isSafePos = true;
     }
 }
