@@ -14,7 +14,7 @@ public class Item : MonoBehaviour
         transform.Rotate(Vector3.up * rotateSpeed * Time.deltaTime);
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other) 
     {
        if (other.gameObject.tag == "Player")
         {
@@ -25,15 +25,19 @@ public class Item : MonoBehaviour
             else ItemManager.itemCnt--;
             Destroy(gameObject);
         }
-        
+
 
     }
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.tag == "Obstacle")
+        if (other.tag == "Obstacle")
         {
-            this.transform.position = new Vector3(Random.Range(-110, 105), 4, Random.Range(-68, 100));
+            if (gameObject.tag == "Food") ItemManager.foodCnt--;
+            else ItemManager.itemCnt--;
+            Destroy(gameObject);
+
+            Debug.Log(transform.position);
         }
     }
 }

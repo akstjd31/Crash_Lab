@@ -16,10 +16,10 @@ public class QuestManager : MonoBehaviour
     public static Dictionary<int, QuestData> questList;
     public Text questNameText, itemText;
     public GameObject[] questItem;
-    public UnityEngine.AI.NavMeshAgent rabbitAgent;
     public bool questItemRecall = false;
     public static bool questClear = false;
     public static bool gatherArea = false;
+    public GameObject radish;
 
     void Awake() // 초기화
     {
@@ -31,9 +31,9 @@ public class QuestManager : MonoBehaviour
     void GenerateData() // 퀘스트 데이터 저장
     {
         questList.Add(0, new QuestData("코인 10개 먹기"));
-        questList.Add(1, new QuestData("토끼 찾기"));
+        questList.Add(1, new QuestData("토끼 당근으로 유도해서 NPC에게 갖다주기"));
         questList.Add(2, new QuestData("해바라기 채집하기"));
-        questList.Add(3, new QuestData("1"));
+        questList.Add(3, new QuestData("NPC 찾기"));
     }
 
     public int GetQuestID() // 현재 퀘스트의 ID를 반환
@@ -74,6 +74,7 @@ public class QuestManager : MonoBehaviour
                 }
                 break;
             case (int)QuestID.FindRabbit:
+                if (QuestRabbit.getRadish) radish.SetActive(true); // 채소 활성화
                 if (questClear)
                 {
                     questItemRecall = false;
@@ -140,7 +141,8 @@ public class QuestManager : MonoBehaviour
 
     void SpawnRabbit()
     {
-        Instantiate(questItem[questId], new Vector3(Random.Range(-110, 105), 4, Random.Range(-68, 100)), Quaternion.identity);
+        // 토끼 소환
+        Instantiate(questItem[questId], new Vector3(Random.Range(-10, 10), 1, Random.Range(-10, 10)), Quaternion.identity); // Instantiate(questItem[questId], new Vector3(Random.Range(-110, 105), 4, Random.Range(-68, 100)), Quaternion.identity);
     }
 
     void SpawnFlower()
