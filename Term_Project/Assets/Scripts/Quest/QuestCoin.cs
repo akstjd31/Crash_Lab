@@ -11,20 +11,23 @@ public class QuestCoin : MonoBehaviour
         RotCoin();
     }
 
+    // 플레이어의 코인 획득
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player")
         {
-            Destroy(this.gameObject);
             QuestManager.coinCnt++;
+            Destroy(this.gameObject);
         }
     }
 
+    // 장애물과 겹치지 않는 장소에 소환
     private void OnTriggerStay(Collider other)
     {
         if (other.gameObject.tag == "Obstacle")
         {
             this.gameObject.transform.position = new Vector3(Random.Range(-15, 15), 2, Random.Range(-15, 15));
+            //this.gameObject.transform.position = new Vector3(Random.Range(-110, 105), 4, Random.Range(-68, 100));
         }
     }
     void RotCoin()

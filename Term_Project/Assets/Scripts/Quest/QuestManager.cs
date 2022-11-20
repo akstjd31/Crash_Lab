@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 enum QuestID
 {
-    CoinQuest = 0, FindRabbit, FlowerCollection
+    FindNPC = 0, CoinQuest, FindRabbit, FlowerCollection, 
 } 
 
 public class QuestManager : MonoBehaviour
@@ -17,23 +17,24 @@ public class QuestManager : MonoBehaviour
     public Text questNameText, itemText;
     public GameObject[] questItem;
     public bool questItemRecall = false;
-    public static bool questClear = false;
     public static bool gatherArea = false;
+    public static bool questComplete = false;
     public GameObject radish;
 
     void Awake() // 초기화
     {
         questList = new Dictionary<int, QuestData>();
-        questId = 1;
+        questId = 0;
         GenerateData();
     }
 
     void GenerateData() // 퀘스트 데이터 저장
     {
-        questList.Add(0, new QuestData("코인 10개 먹기"));
-        questList.Add(1, new QuestData("토끼 당근으로 유도해서 NPC에게 갖다주기"));
-        questList.Add(2, new QuestData("해바라기 채집하기"));
-        questList.Add(3, new QuestData("NPC 찾기"));
+        questList.Add(0, new QuestData("NPC 찾기"));
+        questList.Add(1, new QuestData("10개 모아서 NPC 갖다주기"));
+        questList.Add(2, new QuestData("토끼 유인해서 NPC 갖다주기"));
+        questList.Add(3, new QuestData("해바라기 채집하기"));
+        
     }
 
     public int GetQuestID() // 현재 퀘스트의 ID를 반환
@@ -50,7 +51,6 @@ public class QuestManager : MonoBehaviour
     void NextQuest() // 다음 퀘스트로 넘어가기
     {
         questId += 1;
-        questClear = false;
     }
 
     void CheckQuest() // 현재 퀘스트가 완료되었다면 다음 퀘스트로 넘어감.
@@ -63,95 +63,101 @@ public class QuestManager : MonoBehaviour
 
     bool QuestClear(int id) // id에 해당하는 퀘스트가 완료했다면 true
     {
-        switch (id) {
-            case (int)QuestID.CoinQuest:
-                if (coinCnt == 10)
-                {
-                    questClear = true;
-                    questItemRecall = false;
+        if (FindNPC.findNPC)
+        {
+            FindNPC.findNPC = false;
+            questItemRecall = false;
+            MovePanel.currentTime = 0f; // 판넬 시간 초기화
+            switch (id)
+            {
+                case (int)QuestID.FindNPC: break;
+                case (int)QuestID.CoinQuest:
+                    coinCnt = 0;
                     itemText.text = null;
-                    return true;
-                }
-                break;
-            case (int)QuestID.FindRabbit:
-                if (QuestRabbit.getRadish) radish.SetActive(true); // 채소 활성화
-                if (questClear)
-                {
-                    questItemRecall = false;
-                    return true;
-                }
-            break;
-
-            case (int)QuestID.FlowerCollection:
-                if (flowerCnt == 1)
-                {
-                    questItemRecall = false;
-                    return true;
-                }
-                break;
+                    break;
+                case (int)QuestID.FindRabbit:
+                    break;
+                case (int)QuestID.FlowerCollection: break;
+            }
+            return true;
         }
         return false;
     }
 
     void StartQuest() // 임시로 게임을 시작한지 5초가 지나면 퀘스트 부여
     {
-        if (Player.playTime > 5f)
+        /* 퀘스트마다 텍스트 길이 조절 */
+        if (GetQuestID() == 1 || GetQuestID() == 2 || GetQuestID() == 3)
         {
-            questNameText.text = QuestName(questId);
+            questNameText.fontSize = 14;
+            questNameText.alignment = TextAnchor.UpperCenter;
         }
+        else questNameText.fontSize = 20;
+        questNameText.text = QuestName(questId);
     }
 
     void ControlObject() // 퀘스트와 관련된 오브젝트들 수행
     {
-        switch(questId)
+        if (!questItemRecall)
         {
-            case (int)QuestID.CoinQuest:
-                itemText.text = "현재 획득한 코인 갯수 : " + coinCnt;
-                if (!questItemRecall)
-                    SpawnCoin();
+            if(GetQuestID() == (int)QuestID.CoinQuest)
+            {
+                int maxCoin = 10;
+                for (int i = 0; i < maxCoin; i++) Spawn();
+            }
+            else Spawn();
+            questItemRecall = true;
+        }
 
-                questItemRecall = true;
+        switch (questId)
+        {
+            case (int)QuestID.FindNPC:
+                break;
+            case (int)QuestID.CoinQuest:
+                itemText.text = "모은 동전 갯수 : " + coinCnt;
                 break;
             case (int)QuestID.FindRabbit:
-                if (!questItemRecall)
-                    SpawnRabbit();
-
-                questItemRecall = true;
+                if (QuestRabbit.getRadish) radish.SetActive(true); // 채소 활성화
+                if (FindNPC.isGetRabbit) radish.SetActive(false);
+                itemText.text = "떨어진 채소로 유인하자.";
                 break;
 
             case (int)QuestID.FlowerCollection:
                 itemText.text = "현재 채집한 해바라기 갯수 : " + flowerCnt;
-                if (!questItemRecall)
-                    SpawnFlower();
-
-                questItemRecall = true;
                 break;
-                
         }
     }
 
-    void SpawnCoin() // 코인 퀘스트
+    void Spawn()
+    {
+        Instantiate(questItem[questId], new Vector3(Random.Range(-10, 10), questItem[questId].transform.position.y, Random.Range(-10, 10)), Quaternion.identity);
+        //Instantiate(questItem[questId], new Vector3(Random.Range(-110, 105), 2.8f, Random.Range(-68, 100)), Quaternion.identity);
+    }
+
+/*    void SpawnCoin() // 코인 퀘스트
     {
         int maxCoin = 10;
         for(int i = 0; i < maxCoin; i++)
         {
             Instantiate(questItem[questId], new Vector3(Random.Range(-15, 15), 2, Random.Range(-15, 15)), Quaternion.identity);
+            //Instantiate(questItem[questId], new Vector3(Random.Range(-110, 105), 4, Random.Range(-68, 100)), Quaternion.identity);
         }
     }
 
     void SpawnRabbit()
     {
-        // 토끼 소환
-        Instantiate(questItem[questId], new Vector3(Random.Range(-10, 10), 1, Random.Range(-10, 10)), Quaternion.identity); // Instantiate(questItem[questId], new Vector3(Random.Range(-110, 105), 4, Random.Range(-68, 100)), Quaternion.identity);
+        //Instantiate(questItem[questId], new Vector3(Random.Range(-10, 10), 1, Random.Range(-10, 10)), Quaternion.identity); 
+        Instantiate(questItem[questId], new Vector3(Random.Range(-110, 105), 4, Random.Range(-68, 100)), Quaternion.identity);
     }
 
     void SpawnFlower()
     {
-        Instantiate(questItem[questId], new Vector3(Random.Range(-15, 15), 1, Random.Range(-15, 15)), Quaternion.identity);
-    }
+        //Instantiate(questItem[questId], new Vector3(Random.Range(-15, 15), 1, Random.Range(-15, 15)), Quaternion.identity);
+        Instantiate(questItem[questId], new Vector3(Random.Range(-110, 105), 4, Random.Range(-68, 100)), Quaternion.identity);
+    }*/
 
     void Update()
-    { 
+    {
         StartQuest();
         CheckQuest();
     }

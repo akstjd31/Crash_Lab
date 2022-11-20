@@ -30,7 +30,7 @@ public class Player : MonoBehaviour
             Movement();
     }
 
-    private void Movement() // Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½
+    private void Movement()
     {
         h = Input.GetAxis("Horizontal");
         v = Input.GetAxis("Vertical");
@@ -55,6 +55,7 @@ public class Player : MonoBehaviour
         }
     }
 
+    // Ã¤ÁýÇÏ±â
     void isGather()
     {
         if (QuestManager.gatherArea && Input.GetMouseButtonDown(0) && !isRun)

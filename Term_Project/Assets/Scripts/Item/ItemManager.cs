@@ -236,15 +236,19 @@ class DecreaseHPSpeed : Buff
         index = itemIndex;
     }
 
+    // 아이템 효과
     public override void TriggerItem()
     {
         onTrigger = false;
         Status.useItem = true;
     }
+    // 지속 시간 계산
     public override void RunTime()
     {
         elapsedTime += Time.deltaTime;
     }
+
+    // 종료 작업
     public override void EndRun()
     {
         ItemManager.UsingItem = false;

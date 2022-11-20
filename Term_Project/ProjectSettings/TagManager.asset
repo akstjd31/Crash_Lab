@@ -4,10 +4,11 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Item
   - Food
   - Obstacle
   - Radish
+  - NPC
+  - Buff
   layers:
   - Default
   - TransparentFX

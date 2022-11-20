@@ -23,11 +23,6 @@ public class Status : MonoBehaviour
         calculateHP();
     }
 
-    void OnGUI()
-    {
-        GUI.Label(new Rect(Screen.width / 2 + 50, Screen.height / 2 - 50, 128, 32), "HP : " + HP);
-    }
-
     void calculateHP() // 1초마다 1의 체력을 소모
     {
         if (!useItem) decreaseTime = 0.5f;
