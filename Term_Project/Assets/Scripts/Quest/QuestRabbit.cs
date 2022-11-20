@@ -69,7 +69,6 @@ public class QuestRabbit : MonoBehaviour
                 if (waitTime > 1.0f) Settings();
             }
         }
-
         if (getRadish) InvitationRabbit();
     }
 

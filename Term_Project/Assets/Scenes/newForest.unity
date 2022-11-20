@@ -35909,7 +35909,7 @@ MonoBehaviour:
   itemText: {fileID: 13602617}
   questItem:
   - {fileID: 5647221217578498835, guid: 907a5322baf85ba47b8e9fdfefcece20, type: 3}
-  - {fileID: 8354859253328659541, guid: 8988eb8064e01934994defaebe8127a6, type: 3}
+  - {fileID: 5626598509938386498, guid: 5f990ffaa293ab14ebc81ec38b817d0b, type: 3}
   - {fileID: 3276456305948102716, guid: 64da838ed629e9c4f8c9afc8ae41efe2, type: 3}
   - {fileID: 7789443252568872030, guid: 99fe66b8530ca684897c6e311fdc54aa, type: 3}
   questItemRecall: 0
