@@ -9,10 +9,10 @@ public class Radish : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Rotate(Vector3.up * rotSpeed * Time.deltaTime); // È¸Àü
+        transform.Rotate(Vector3.up * rotSpeed * Time.deltaTime); // È¸ï¿½ï¿½
     }
 
-    // ÇÃ·¹ÀÌ¾î°¡ È¹µæÇÏ¸é ½ºÆùµÇ¾îÀÖ´ø ¹« »èÁ¦
+    // ï¿½Ã·ï¿½ï¿½Ì¾î°¡ È¹ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½Ö´ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player")
@@ -23,13 +23,13 @@ public class Radish : MonoBehaviour
             
     }
 
-    // Àå¾Ö¹°°ú °ãÄ¡Áö ¾Ê´Â Àå¼Ò¿¡ ¼ÒÈ¯
+    // ï¿½ï¿½Ö¹ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½Ê´ï¿½ ï¿½ï¿½Ò¿ï¿½ ï¿½ï¿½È¯
     private void OnTriggerStay(Collider other)
     {
         if (other.tag == "Obstacle")
         {
-            gameObject.transform.position = new Vector3(Random.Range(-10, 10), 1.5f, Random.Range(-10, 10));
-            //this.gameObject.transform.position = new Vector3(Random.Range(-110, 105), 4, Random.Range(-68, 100));
+            //gameObject.transform.position = new Vector3(Random.Range(-10, 10), 1.5f, Random.Range(-10, 10));
+            this.gameObject.transform.position = new Vector3(Random.Range(-110, 105), 4, Random.Range(-68, 100));
         }
     }
 }
