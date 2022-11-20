@@ -11,7 +11,7 @@ public class QuestCoin : MonoBehaviour
         RotCoin();
     }
 
-    // ÇÃ·¹ÀÌ¾îÀÇ ÄÚÀÎ È¹µæ
+    // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È¹ï¿½ï¿½
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player")
@@ -21,13 +21,13 @@ public class QuestCoin : MonoBehaviour
         }
     }
 
-    // Àå¾Ö¹°°ú °ãÄ¡Áö ¾Ê´Â Àå¼Ò¿¡ ¼ÒÈ¯
+    // ï¿½ï¿½Ö¹ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½Ê´ï¿½ ï¿½ï¿½Ò¿ï¿½ ï¿½ï¿½È¯
     private void OnTriggerStay(Collider other)
     {
         if (other.gameObject.tag == "Obstacle")
         {
-            this.gameObject.transform.position = new Vector3(Random.Range(-15, 15), 2, Random.Range(-15, 15));
-            //this.gameObject.transform.position = new Vector3(Random.Range(-110, 105), 4, Random.Range(-68, 100));
+            //this.gameObject.transform.position = new Vector3(Random.Range(-15, 15), 2, Random.Range(-15, 15));
+            this.gameObject.transform.position = new Vector3(Random.Range(-110, 105), 4, Random.Range(-68, 100));
         }
     }
     void RotCoin()
