@@ -18,7 +18,6 @@ public class QuestManager : MonoBehaviour
     public GameObject[] questItem;
     public bool questItemRecall = false;
     public static bool gatherArea = false;
-    public static bool questComplete = false;
     public GameObject radish;
 
     void Awake() // 초기화
@@ -34,7 +33,6 @@ public class QuestManager : MonoBehaviour
         questList.Add(1, new QuestData("10개 모아서 NPC 갖다주기"));
         questList.Add(2, new QuestData("토끼 유인해서 NPC 갖다주기"));
         questList.Add(3, new QuestData("해바라기 채집하기"));
-        
     }
 
     public int GetQuestID() // 현재 퀘스트의 ID를 반환
@@ -111,11 +109,11 @@ public class QuestManager : MonoBehaviour
 
         switch (questId)
         {
-            case (int)QuestID.FindNPC:
-                break;
+            case (int)QuestID.FindNPC: break;
             case (int)QuestID.CoinQuest:
                 itemText.text = "모은 동전 갯수 : " + coinCnt;
                 break;
+
             case (int)QuestID.FindRabbit:
                 if (QuestRabbit.getRadish) radish.SetActive(true); // 채소 활성화
                 if (FindNPC.isGetRabbit) radish.SetActive(false);
@@ -130,31 +128,9 @@ public class QuestManager : MonoBehaviour
 
     void Spawn()
     {
-        Instantiate(questItem[questId], new Vector3(Random.Range(-10, 10), questItem[questId].transform.position.y, Random.Range(-10, 10)), Quaternion.identity);
-        //Instantiate(questItem[questId], new Vector3(Random.Range(-110, 105), 2.8f, Random.Range(-68, 100)), Quaternion.identity);
+        //Instantiate(questItem[questId], new Vector3(Random.Range(-10, 10), questItem[questId].transform.position.y, Random.Range(-10, 10)), Quaternion.identity);
+        Instantiate(questItem[questId], new Vector3(Random.Range(-110, 105), 4f, Random.Range(-68, 100)), Quaternion.identity);
     }
-
-/*    void SpawnCoin() // 코인 퀘스트
-    {
-        int maxCoin = 10;
-        for(int i = 0; i < maxCoin; i++)
-        {
-            Instantiate(questItem[questId], new Vector3(Random.Range(-15, 15), 2, Random.Range(-15, 15)), Quaternion.identity);
-            //Instantiate(questItem[questId], new Vector3(Random.Range(-110, 105), 4, Random.Range(-68, 100)), Quaternion.identity);
-        }
-    }
-
-    void SpawnRabbit()
-    {
-        //Instantiate(questItem[questId], new Vector3(Random.Range(-10, 10), 1, Random.Range(-10, 10)), Quaternion.identity); 
-        Instantiate(questItem[questId], new Vector3(Random.Range(-110, 105), 4, Random.Range(-68, 100)), Quaternion.identity);
-    }
-
-    void SpawnFlower()
-    {
-        //Instantiate(questItem[questId], new Vector3(Random.Range(-15, 15), 1, Random.Range(-15, 15)), Quaternion.identity);
-        Instantiate(questItem[questId], new Vector3(Random.Range(-110, 105), 4, Random.Range(-68, 100)), Quaternion.identity);
-    }*/
 
     void Update()
     {

@@ -20,7 +20,6 @@ public class Player : MonoBehaviour
     void Update()
     {
         playTime += Time.deltaTime;
-
         isGather();
     }
 

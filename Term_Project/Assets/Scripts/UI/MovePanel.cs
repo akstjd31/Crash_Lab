@@ -8,10 +8,8 @@ public class MovePanel : MonoBehaviour
     public Transform endPosition;
 
     public static float currentTime = 0f; 
-    float lerpTime = 1.0f; // 내려오는 시간
-    bool flag = false;
+    float lerpTime = 1.0f; // ???????? ?ð?
 
-    QuestManager qManager;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,7 +19,7 @@ public class MovePanel : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // 퀘스트 클리어 = 이전 퀘스트 종료 시 다시 위로 올림
+        // ????? ????? = ???? ????? ???? ?? ??? ???? ?ø?
         MoveImage();
     }
 
@@ -34,7 +32,7 @@ public class MovePanel : MonoBehaviour
             currentTime = lerpTime;
         }
 
-        // 스무스스텝 계산
+        // ?????????? ???
         float t = currentTime / lerpTime;
         t = Mathf.Sin(t * Mathf.PI * 0.5f);
         this.transform.position = Vector3.Lerp(startPosition.position, endPosition.position, t);
