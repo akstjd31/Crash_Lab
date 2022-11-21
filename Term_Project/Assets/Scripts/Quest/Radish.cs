@@ -9,10 +9,10 @@ public class Radish : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Rotate(Vector3.up * rotSpeed * Time.deltaTime); // ȸ��
+        transform.Rotate(Vector3.up * rotSpeed * Time.deltaTime); // ???
     }
 
-    // �÷��̾ ȹ���ϸ� �����Ǿ��ִ� �� ����
+    // ?��???? ?????? ?????????? ?? ????
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player")
@@ -23,7 +23,7 @@ public class Radish : MonoBehaviour
             
     }
 
-    // ��ֹ��� ��ġ�� �ʴ� ��ҿ� ��ȯ
+    // ?????? ????? ??? ???? ???
     private void OnTriggerStay(Collider other)
     {
         if (other.tag == "Obstacle")

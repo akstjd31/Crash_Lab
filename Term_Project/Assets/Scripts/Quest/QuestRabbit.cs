@@ -5,11 +5,11 @@ using UnityEngine.AI;
 
 public class QuestRabbit : MonoBehaviour
 {
-    float waitTime = 0.0f; // ÀÌµ¿½Ã°£, ´ë±â½Ã°£
+    float waitTime = 0.0f; // ï¿½Ìµï¿½ï¿½Ã°ï¿½, ï¿½ï¿½ï¿½Ã°ï¿½
     float lookAtObsTime = 0.0f;
-    //float moveSpeed = 6f;  // ¿òÁ÷ÀÌ´Â ¼Óµµ
-    //float rotateSpeed = 10.0f; // È¸Àü¼Óµµ
-    bool waitForSecond = false; // ´ë±â»óÅÂÀÎÁö ¾Æ´ÑÁö Ã¼Å©
+    //float moveSpeed = 6f;  // ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½ ï¿½Óµï¿½
+    //float rotateSpeed = 10.0f; // È¸ï¿½ï¿½ï¿½Óµï¿½
+    bool waitForSecond = false; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ï¿½ï¿½ Ã¼Å©
     bool rabbitFollowMe = false;
 
     public static bool isSafePos = false;
@@ -19,12 +19,12 @@ public class QuestRabbit : MonoBehaviour
 
     public NavMeshAgent rabbitAgent;
     public GameObject radishPrefab;
-    GameObject target; // player ÁÂÇ¥
+    GameObject target; // player ï¿½ï¿½Ç¥
 
     public static Vector3 randPos;
     Vector3  rabbitPos;
     // Start is called before the first frame update
-    void Awake() // ÃÊ±âÈ­ ¹× »ý¼º
+    void Awake() // ï¿½Ê±ï¿½È­ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     {
         rabbitAnim = GetComponent<Animator>();
         rabbitAgent = GetComponent<NavMeshAgent>();
@@ -35,10 +35,11 @@ public class QuestRabbit : MonoBehaviour
 
     void SpawnRadish()
     {
-        Instantiate(radishPrefab, new Vector3(Random.Range(-10, 10), 1.5f, Random.Range(-10, 10)), Quaternion.identity);
+        Instantiate(radishPrefab, new Vector3(Random.Range(-110, 105), 4f, Random.Range(-68, 100)), Quaternion.identity);
+        //Instantiate(radishPrefab, new Vector3(Random.Range(-10, 10), 1.5f, Random.Range(-10, 10)), Quaternion.identity);
     }
 
-    void Settings() // ¸®¼Â ÀÛ¾÷
+    void Settings() // ï¿½ï¿½ï¿½ï¿½ ï¿½Û¾ï¿½
     {
         lookAtObsTime = 0.0f;
         waitTime = 0.0f;
@@ -57,8 +58,8 @@ public class QuestRabbit : MonoBehaviour
             if (!rabbitFollowMe) CheckGoalPos();
         }
 
-        /* ·£´ýÀ¸·Î Á¤ÇØÁø ½Ã°£º¸´Ù ÀÛ°Å³ª x, z ÁÂÇ¥ÀÇ Â÷ÀÌ°¡ ¸ñÇ¥ ·£´ýÁÂÇ¥¿Í
-        °¡±îÀÌ ÀÖÀ¸¸é¼­ ¸¸¾à Àå¾Ö¹°°ú ¸Â´êÀº ½Ã°£ÀÌ 1.5ÃÊ ÀÌ»óÀÌ µÇ¸é Åä³¢°¡ ¸ØÃß°í »õ·Î¿î ÁÂÇ¥¸¦ °¡Á®¿Â´Ù. */
+        /* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Û°Å³ï¿½ x, z ï¿½ï¿½Ç¥ï¿½ï¿½ ï¿½ï¿½ï¿½Ì°ï¿½ ï¿½ï¿½Ç¥ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç¥ï¿½ï¿½
+        ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½é¼­ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ö¹ï¿½ï¿½ï¿½ ï¿½Â´ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ 1.5ï¿½ï¿½ ï¿½Ì»ï¿½ï¿½ï¿½ ï¿½Ç¸ï¿½ ï¿½ä³¢ï¿½ï¿½ ï¿½ï¿½ï¿½ß°ï¿½ ï¿½ï¿½ï¿½Î¿ï¿½ ï¿½ï¿½Ç¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Â´ï¿½. */
         if (!rabbitFollowMe)
         {
             if (Mathf.Abs(transform.position.x - randPos.x) <= 1.5f
@@ -78,7 +79,7 @@ public class QuestRabbit : MonoBehaviour
         isSafePos = true;
     }
 
-    /* Åä³¢°¡ ¸ØÃç¼±´Ù. */
+    /* ï¿½ä³¢ï¿½ï¿½ ï¿½ï¿½ï¿½ç¼±ï¿½ï¿½. */
     void Wait()
     {
         waitTime += Time.deltaTime;
@@ -86,7 +87,7 @@ public class QuestRabbit : MonoBehaviour
         rabbitAnim.SetBool("isRun", false);
     }
 
-    /* Åä³¢ÀÇ ÀÌµ¿ ¹× È¸Àü */
+    /* ï¿½ä³¢ï¿½ï¿½ ï¿½Ìµï¿½ ï¿½ï¿½ È¸ï¿½ï¿½ */
     void Movement()
     {
         rabbitPos = transform.position;
@@ -97,7 +98,7 @@ public class QuestRabbit : MonoBehaviour
         else rabbitAgent.SetDestination(randPos);
     }
 
-    /* ÇöÀç Åä³¢°¡ Àå¾Ö¹°¿¡ ¸Â´ê´Â ½Ã°£À» ÃøÁ¤ */
+    /* ï¿½ï¿½ï¿½ï¿½ ï¿½ä³¢ï¿½ï¿½ ï¿½ï¿½Ö¹ï¿½ï¿½ï¿½ ï¿½Â´ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ */
     void CheckGoalPos()
     {
         RaycastHit hit;
@@ -110,7 +111,7 @@ public class QuestRabbit : MonoBehaviour
         }
     }
 
-    /* Åä³¢¶û ¸ÔÀÌ°¡ ±ÙÁ¢ÇßÀ» ¶§ ½ÇÇà */
+    /* ï¿½ä³¢ï¿½ï¿½ ï¿½ï¿½ï¿½Ì°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ */
     void InvitationRabbit()
     {
         Vector3 vDir = this.transform.position - target.transform.position;
@@ -122,7 +123,7 @@ public class QuestRabbit : MonoBehaviour
         else rabbitFollowMe = false;
     }
 
-    /* Ãæµ¹ Ã¼Å© ¹× ÇöÀç Äù½ºÆ® ¿Ï·á¸¦ Àü´ÞÇÏ±â À§ÇÑ ¸Þ¼Òµå */
+    /* ï¿½æµ¹ Ã¼Å© ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Ï·á¸¦ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¼Òµï¿½ */
     private void OnCollisionEnter(Collision col)
     {
         if (col.gameObject.tag == "NPC")
@@ -134,7 +135,7 @@ public class QuestRabbit : MonoBehaviour
 
     private void OnCollisionStay(Collision col)
     {
-        /* Åä³¢ÀÇ »ý¼ºÀ§Ä¡°¡ Àå¾Ö¹°ÀÌ ¾ø´Â ¾ÈÀüÇÑ À§Ä¡ÀÎÁö È®ÀÎ */
+        /* ï¿½ä³¢ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½Ö¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ */
         if (col.gameObject.tag == "Obstacle" && !isSafePos)
         {
             //gameObject.transform.position = new Vector3(Random.Range(-10, 10), 1, Random.Range(-10, 10));

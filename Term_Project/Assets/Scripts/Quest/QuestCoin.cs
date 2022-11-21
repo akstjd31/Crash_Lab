@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class QuestCoin : MonoBehaviour
 {
-    float rotSpeed = 20f;
+    float rotSpeed = 40f;
     // Update is called once per frame
     void Update()
     {
