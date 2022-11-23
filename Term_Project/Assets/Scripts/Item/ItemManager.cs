@@ -14,21 +14,21 @@ enum ItemID
 
 public class ItemManager : MonoBehaviour
 {
-    public static string itemName; // º¹Á¦µÈ ¾ÆÀÌÅÛÀÇ ¸íÄª
-    public static bool UsingItem = false; // ¾ÆÀÌÅÛ »ç¿ë ¿©ºÎ
-    public static bool[] UsingItemArr; // Æ¯Á¤ ¾ÆÀÌÅÛ »ç¿ë ¿©ºÎ
-    public static float[] elapsedTimeArr; // ¾ÆÀÌÅÛ Áö¼Ó ½Ã°£ 
+    public static string itemName; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Äª
+    public static bool UsingItem = false; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    public static bool[] UsingItemArr; // Æ¯ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    public static float[] elapsedTimeArr; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ 
     public static int foodCnt = 0, itemCnt = 0;
     public GameObject[] items;
-    public int numOfFood = 10; // »ý¼ºÇÒ ÃÖ´ë À½½Ä °¹¼ö
-    public int numOfItem = 5; // »ý¼ºÇÒ ÃÖ´ë ¹öÇÁ¾ÆÀÌÅÛ °¹¼ö
+    private int numOfFood = 10; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    private int numOfItem = 5; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
     int pastItemIndex;
-    Buff[] buff;
+    private Buff[] buff;
     // Start is called before the first frame update
     void Awake()
     {
-        /* ÃÊ±âÈ­ */
+        /* ï¿½Ê±ï¿½È­ */
         UsingItemArr = new bool[items.Length];
         elapsedTimeArr = new float[items.Length];
         buff = new Buff[items.Length];
@@ -36,7 +36,6 @@ public class ItemManager : MonoBehaviour
 
         for (int i = 0; i < items.Length; i++)
         {
-            UsingItemArr[i] = false;
             elapsedTimeArr[i] = 0.0f;
             buff[i] = null;
         }
@@ -53,11 +52,11 @@ public class ItemManager : MonoBehaviour
 
     /// //////////////////////////////////////////////////////////////////
     /// forest
-    /// XÁÂÇ¥ -80, 65
-    /// YÁÂÇ¥ 5
-    /// ZÁÂÇ¥ -25, 145
+    /// Xï¿½ï¿½Ç¥ -80, 65
+    /// Yï¿½ï¿½Ç¥ 5
+    /// Zï¿½ï¿½Ç¥ -25, 145
     //////////////////////////////////////////////////////////////////////
-    private void Spawn() // ¾ÆÀÌÅÛ »ý¼º ¸Þ¼Òµå
+    private void Spawn() // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¼Òµï¿½
     {
         if (foodCnt < numOfFood)
         {
@@ -75,7 +74,7 @@ public class ItemManager : MonoBehaviour
         }
     }
 
-    private void CheckItem() // ÇöÀç ¸ÔÀº ¾ÆÀÌÅÛÀÌ ¾î¶² ¾ÆÀÌÅÛÀÎÁö ÆÇº°
+    private void CheckItem() // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½î¶² ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Çºï¿½
     {
         if (UsingItem)
         {
@@ -89,7 +88,7 @@ public class ItemManager : MonoBehaviour
             }
 
             Buff.itemIndex = i;
-            if (!(pastItemIndex == Buff.itemIndex && UsingItemArr[pastItemIndex])) // ÇöÀç ¸ÔÀº ¾ÆÀÌÅÛÀÌ Àü¿¡ ¸Ô¾ú´ø ¾ÆÀÌÅÛÇÏ°í ÀÏÄ¡ÇÏ¸é¼­ ÄðÅ¸ÀÓÀÌ ¾Æ´Ò ¶§
+            if (!(pastItemIndex == Buff.itemIndex && UsingItemArr[pastItemIndex])) // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½Ä¡ï¿½Ï¸é¼­ ï¿½ï¿½Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½
             {
                 UsingItemArr[i] = true;
                 switch (i)
@@ -120,7 +119,7 @@ public class ItemManager : MonoBehaviour
         if (NotUsingItem()) UsingItem = false;
     }
 
-    private bool NotUsingItem() // ÇÃ·¹ÀÌ¾î¿¡¼­ ¾ÆÀÌÅÛ È¿°ú°¡ ÀÖ´ÂÁö È®ÀÎ
+    private bool NotUsingItem() // ï¿½Ã·ï¿½ï¿½Ì¾î¿¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È¿ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½ È®ï¿½ï¿½
     {
         for (int j = 0; j < items.Length; j++) if (UsingItemArr[j]) return false;
         return true;
@@ -128,29 +127,29 @@ public class ItemManager : MonoBehaviour
 
     private void useItem()
     {
-        for (int i = 0; i < items.Length; i++) // Àü¿¡ ¸Ô¾ú´ø ¾ÆÀÌÅÛ È¿°ú³ª ÄðÅ¸ÀÓÀÌ ³²¾Ò´ÂÁö È®ÀÎ
+        for (int i = 0; i < items.Length; i++) // ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È¿ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ò´ï¿½ï¿½ï¿½ È®ï¿½ï¿½
         {
             if (UsingItemArr[i]) buff[i].method(); // if (UsingItemArr[i] && i != Buff.ItemIndex) buff[i].method();
         }
 
-        if (UsingItemArr[Buff.itemIndex]) // »õ·Î¿î ¾ÆÀÌÅÛÀ» ¸Ô¾úÀ» ¶§
+        if (UsingItemArr[Buff.itemIndex]) // ï¿½ï¿½ï¿½Î¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¾ï¿½ï¿½ï¿½ ï¿½ï¿½
         {
             buff[Buff.itemIndex].method();
         }
     }
 }
 
-abstract class Buff // °øÅëÀûÀÎ ¹öÇÁ Ãß»ó Å¬·¡½º
+abstract class Buff // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß»ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½
 {
-    public float coolTime; // Äð Å¸ÀÓ
-    public float elapsedTime; // Áö¼Ó ½Ã°£
-    public bool onTrigger; // ¾ÆÀÌÅÛ Àû¿ëÈ¿°ú¸¦ Ã³À½ ÇÑ ¹ø¸¸ ½ÇÇàÇÏ±â À§ÇÑ º¯¼ö
+    public float coolTime; // ï¿½ï¿½ Å¸ï¿½ï¿½
+    public float elapsedTime; // ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½
+    public bool onTrigger; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½È¿ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     public int index;
-    public static int itemIndex; // ÇØ´ç ¾ÆÀÌÅÛÀÇ ÀÎµ¦½º 
-    public abstract void TriggerItem(); // ¾ÆÀÌÅÛ ÀÛµ¿
-    public abstract void RunTime(); // ·±Å¸ÀÓ °è»ê
+    public static int itemIndex; // ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½ 
+    public abstract void TriggerItem(); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ûµï¿½
+    public abstract void RunTime(); // ï¿½ï¿½Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½
 
-    public abstract void EndRun(); // º¯°æ °ª ÃÊ±âÈ­ ÀÛ¾÷
+    public abstract void EndRun(); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ê±ï¿½È­ ï¿½Û¾ï¿½
 
     public void method()
     {
@@ -173,7 +172,7 @@ class Heal : Buff
     public override void TriggerItem()
     {
         onTrigger = false;
-        /* À½½Ä¿¡ µû¸¥ È¸º¹·Â ºñ±³ */
+        /* ï¿½ï¿½ï¿½Ä¿ï¿½ ï¿½ï¿½ï¿½ï¿½ È¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ */
         if (index == (int)FoodID.HAMBURGER) Status.HP += 10;
         else if (index == (int)FoodID.PIZZA) Status.HP += 13;
         else if (index == (int)FoodID.CAKE) Status.HP += 16;
@@ -195,7 +194,7 @@ class Heal : Buff
     }
 }
 
-/* ¼Óµµ ¾ÆÀÌÅÛ */
+/* ï¿½Óµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
 class SpeedUp : Buff
 {
     public SpeedUp()
@@ -225,7 +224,7 @@ class SpeedUp : Buff
     }
 }
 
-/* Ã¼·Â °¨¼Ò¼Óµµ¸¦ ´ÊÃß´Â ¾ÆÀÌÅÛ */
+/* Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½Ò¼Óµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ß´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
 class DecreaseHPSpeed : Buff
 {
     public DecreaseHPSpeed()
@@ -236,19 +235,19 @@ class DecreaseHPSpeed : Buff
         index = itemIndex;
     }
 
-    // ¾ÆÀÌÅÛ È¿°ú
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È¿ï¿½ï¿½
     public override void TriggerItem()
     {
         onTrigger = false;
         Status.useItem = true;
     }
-    // Áö¼Ó ½Ã°£ °è»ê
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ ï¿½ï¿½ï¿½
     public override void RunTime()
     {
         elapsedTime += Time.deltaTime;
     }
 
-    // Á¾·á ÀÛ¾÷
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½Û¾ï¿½
     public override void EndRun()
     {
         ItemManager.UsingItem = false;
@@ -258,7 +257,7 @@ class DecreaseHPSpeed : Buff
     }
 }
 
-/* ÃÖ´ëÃ¼·Â Á¦ÇÑÀ» 100¿¡¼­ 150À¸·Î ´Ã·ÁÁÖ´Â ¾ÆÀÌÅÛ  */
+/* ï¿½Ö´ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 100ï¿½ï¿½ï¿½ï¿½ 150ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  */
 class IncreaseMaxHP : Buff
 {
     public IncreaseMaxHP()

@@ -20,38 +20,38 @@ public class QuestManager : MonoBehaviour
     public static bool gatherArea = false;
     public GameObject radish;
 
-    void Awake() // ÃÊ±âÈ­
+    void Awake() // ì´ˆê¸°í™”
     {
         questList = new Dictionary<int, QuestData>();
         questId = 0;
         GenerateData();
     }
 
-    void GenerateData() // Äù½ºÆ® µ¥ÀÌÅÍ ÀúÀå
+    void GenerateData() // í€˜ìŠ¤íŠ¸ ë°ì´í„° ì €ì¥
     {
-        questList.Add(0, new QuestData("NPC Ã£±â"));
-        questList.Add(1, new QuestData("10°³ ¸ğ¾Æ¼­ NPC °®´ÙÁÖ±â"));
-        questList.Add(2, new QuestData("Åä³¢ À¯ÀÎÇØ¼­ NPC °®´ÙÁÖ±â"));
-        questList.Add(3, new QuestData("ÇØ¹Ù¶ó±â Ã¤ÁıÇÏ±â"));
+        questList.Add(0, new QuestData("NPC ì°¾ê¸°"));
+        questList.Add(1, new QuestData("10ê°œ ëª¨ì•„ì„œ NPC ê°–ë‹¤ì£¼ê¸°"));
+        questList.Add(2, new QuestData("í† ë¼ ìœ ì¸í•´ì„œ NPC ê°–ë‹¤ì£¼ê¸°"));
+        questList.Add(3, new QuestData("í•´ë°”ë¼ê¸° ì±„ì§‘í•˜ê¸°"));
     }
 
-    public int GetQuestID() // ÇöÀç Äù½ºÆ®ÀÇ ID¸¦ ¹İÈ¯
+    public int GetQuestID() // í˜„ì¬ í€˜ìŠ¤íŠ¸ì˜ IDë¥¼ ë°˜í™˜
     {
         return questId;
     }
 
-    public string QuestName(int id) // ÇöÀç Äù½ºÆ®¸íÀ» ¹İÈ¯
+    public string QuestName(int id) // í˜„ì¬ í€˜ìŠ¤íŠ¸ëª…ì„ ë°˜í™˜
     {
         ControlObject();
         return questList[id].questName;
     }
 
-    void NextQuest() // ´ÙÀ½ Äù½ºÆ®·Î ³Ñ¾î°¡±â
+    void NextQuest() // ë‹¤ìŒ í€˜ìŠ¤íŠ¸ë¡œ ë„˜ì–´ê°€ê¸°
     {
         questId += 1;
     }
 
-    void CheckQuest() // ÇöÀç Äù½ºÆ®°¡ ¿Ï·áµÇ¾ú´Ù¸é ´ÙÀ½ Äù½ºÆ®·Î ³Ñ¾î°¨.
+    void CheckQuest() // í˜„ì¬ í€˜ìŠ¤íŠ¸ê°€ ì™„ë£Œë˜ì—ˆë‹¤ë©´ ë‹¤ìŒ í€˜ìŠ¤íŠ¸ë¡œ ë„˜ì–´ê°.
     {
         if (QuestClear(questId))
         {
@@ -59,13 +59,13 @@ public class QuestManager : MonoBehaviour
         }
     }
 
-    bool QuestClear(int id) // id¿¡ ÇØ´çÇÏ´Â Äù½ºÆ®°¡ ¿Ï·áÇß´Ù¸é true
+    bool QuestClear(int id) // idì— í•´ë‹¹í•˜ëŠ” í€˜ìŠ¤íŠ¸ê°€ ì™„ë£Œí–ˆë‹¤ë©´ true
     {
         if (FindNPC.findNPC)
         {
             FindNPC.findNPC = false;
             questItemRecall = false;
-            MovePanel.currentTime = 0f; // ÆÇ³Ú ½Ã°£ ÃÊ±âÈ­
+            MovePanel.currentTime = 0f; // íŒë„¬ ì‹œê°„ ì´ˆê¸°í™”
             switch (id)
             {
                 case (int)QuestID.FindNPC: break;
@@ -82,9 +82,9 @@ public class QuestManager : MonoBehaviour
         return false;
     }
 
-    void StartQuest() // ÀÓ½Ã·Î °ÔÀÓÀ» ½ÃÀÛÇÑÁö 5ÃÊ°¡ Áö³ª¸é Äù½ºÆ® ºÎ¿©
+    void StartQuest() // ì„ì‹œë¡œ ê²Œì„ì„ ì‹œì‘í•œì§€ 5ì´ˆê°€ ì§€ë‚˜ë©´ í€˜ìŠ¤íŠ¸ ë¶€ì—¬
     {
-        /* Äù½ºÆ®¸¶´Ù ÅØ½ºÆ® ±æÀÌ Á¶Àı */
+        /* í€˜ìŠ¤íŠ¸ë§ˆë‹¤ í…ìŠ¤íŠ¸ ê¸¸ì´ ì¡°ì ˆ */
         if (GetQuestID() == 1 || GetQuestID() == 2 || GetQuestID() == 3)
         {
             questNameText.fontSize = 14;
@@ -94,7 +94,7 @@ public class QuestManager : MonoBehaviour
         questNameText.text = QuestName(questId);
     }
 
-    void ControlObject() // Äù½ºÆ®¿Í °ü·ÃµÈ ¿ÀºêÁ§Æ®µé ¼öÇà
+    void ControlObject() // í€˜ìŠ¤íŠ¸ì™€ ê´€ë ¨ëœ ì˜¤ë¸Œì íŠ¸ë“¤ ìˆ˜í–‰
     {
         if (!questItemRecall)
         {
@@ -111,17 +111,17 @@ public class QuestManager : MonoBehaviour
         {
             case (int)QuestID.FindNPC: break;
             case (int)QuestID.CoinQuest:
-                itemText.text = "¸ğÀº µ¿Àü °¹¼ö : " + coinCnt;
+                itemText.text = "ëª¨ì€ ë™ì „ ê°¯ìˆ˜ : " + coinCnt;
                 break;
 
             case (int)QuestID.FindRabbit:
-                if (QuestRabbit.getRadish) radish.SetActive(true); // Ã¤¼Ò È°¼ºÈ­
+                if (QuestRabbit.getRadish) radish.SetActive(true); // ì±„ì†Œ í™œì„±í™”
                 if (FindNPC.isGetRabbit) radish.SetActive(false);
-                itemText.text = "¶³¾îÁø Ã¤¼Ò·Î À¯ÀÎÇÏÀÚ.";
+                itemText.text = "ë–¨ì–´ì§„ ì±„ì†Œë¡œ ìœ ì¸í•˜ì.";
                 break;
 
             case (int)QuestID.FlowerCollection:
-                itemText.text = "ÇöÀç Ã¤ÁıÇÑ ÇØ¹Ù¶ó±â °¹¼ö : " + flowerCnt;
+                itemText.text = "í˜„ì¬ ì±„ì§‘í•œ í•´ë°”ë¼ê¸° ê°¯ìˆ˜ : " + flowerCnt;
                 break;
         }
     }
