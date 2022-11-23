@@ -39,8 +39,8 @@ public class QuestFlowerCollection : MonoBehaviour
 
         if (other.gameObject.tag == "Obstacle")
         {
-            //transform.position = new Vector3(Random.Range(-15, 15), 1, Random.Range(-15, 15));
-            this.gameObject.transform.position = new Vector3(Random.Range(-110, 105), 4, Random.Range(-68, 100));
+            transform.position = new Vector3(Random.Range(-15, 15), 1, Random.Range(-15, 15));
+            //this.gameObject.transform.position = new Vector3(Random.Range(-110, 105), 4, Random.Range(-68, 100));
         }
     }
 }

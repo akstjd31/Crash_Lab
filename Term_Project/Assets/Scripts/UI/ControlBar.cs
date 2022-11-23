@@ -1,4 +1,4 @@
-﻿//this script is just used for the demo...nothing to see here move along.
+//this script is just used for the demo...nothing to see here move along.
 
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,6 +9,7 @@ public class ControlBar : MonoBehaviour {
 
 	//a list of all the UIScript_HP
 	public List<UIBarScript> HPScriptList = new List<UIBarScript>();
+    [SerializeField] private GameObject target;
 	// Update is called once per frame
 	void Update() 
 	{

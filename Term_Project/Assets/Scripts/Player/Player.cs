@@ -29,6 +29,7 @@ public class Player : MonoBehaviour
             Movement();
     }
 
+    /* 플레이어 이동 */
     private void Movement()
     {
         h = Input.GetAxis("Horizontal");

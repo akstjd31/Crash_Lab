@@ -1,4 +1,4 @@
-﻿//This is the main controlling script foe the UIBars
+//This is the main controlling script foe the UIBars
 
 using UnityEngine;
 using UnityEngine.UI;
@@ -96,7 +96,7 @@ public class UIBarScript : MonoBehaviour {
 		if (FillStyle == FillStyles.horizontal)
 		{
 			Mask1 = new Vector3(MRT.position.x,MRT.position.y,MRT.position.z);
-			Mask0 = new Vector3(MRT.position.x - (MRT.rect.width / 2) + MaskOffset,MRT.position.y,MRT.position.z );
+			Mask0 = new Vector3(MRT.position.x - MRT.rect.width + MaskOffset,MRT.position.y,MRT.position.z );
 		}
 		else
 		{

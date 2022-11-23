@@ -4,10 +4,9 @@ using UnityEngine;
 
 public class FindNPC : MonoBehaviour
 {
-    GameObject target; // 플레이어
-    bool onlyOneUse = false; // 말 그대로 한번만 사용하기 위함
-    public static bool findNPC = false;
-    public static bool isGetRabbit = false;
+    private GameObject target; // 플레이어
+    private bool findNPC = false; // 말 그대로 한번만 사용하기 위함
+    public static bool NPCGetRabbit = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,14 +21,15 @@ public class FindNPC : MonoBehaviour
             && Mathf.Abs(transform.position.z - target.transform.position.z) < 4f)
         {
             // NPC 발견 퀘스트
-            if (!onlyOneUse)
+            if (!findNPC)
             {
-                findNPC = true;
-                onlyOneUse = true; 
+                QuestManager.questClear = true;
+                findNPC = true; 
             }
-            else if (QuestManager.coinCnt == 10) findNPC = true; // 코인 퀘스트
-            else if (QuestManager.flowerCnt == 1) findNPC = true; // 해바라기 퀘스트
-            else if (isGetRabbit) findNPC = true;
+
+            if (QuestManager.coinCnt == 10) QuestManager.questClear = true; // 코인 퀘스트
+            if (QuestManager.flowerCnt == 1) QuestManager.questClear = true; // 해바라기 퀘스트
+            if (NPCGetRabbit) QuestManager.questClear = true;
             this.transform.LookAt(target.transform.position); // 플레이어와 가까운 위치에서 항상 플레이어를 바라본다.
         }
     }

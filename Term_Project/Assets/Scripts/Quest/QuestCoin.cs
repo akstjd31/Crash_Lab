@@ -11,7 +11,7 @@ public class QuestCoin : MonoBehaviour
         RotCoin();
     }
 
-    // �÷��̾��� ���� ȹ��
+    // 플레이어 코인 획득
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player")
@@ -21,13 +21,13 @@ public class QuestCoin : MonoBehaviour
         }
     }
 
-    // ��ֹ��� ��ġ�� �ʴ� ��ҿ� ��ȯ
+    // 코인 소환 위치 결정
     private void OnTriggerStay(Collider other)
     {
         if (other.gameObject.tag == "Obstacle")
         {
-            //this.gameObject.transform.position = new Vector3(Random.Range(-15, 15), 2, Random.Range(-15, 15));
-            this.gameObject.transform.position = new Vector3(Random.Range(-110, 105), 4, Random.Range(-68, 100));
+            this.gameObject.transform.position = new Vector3(Random.Range(-15, 15), 2, Random.Range(-15, 15));
+            //this.gameObject.transform.position = new Vector3(Random.Range(-110, 105), 4, Random.Range(-68, 100));
         }
     }
     void RotCoin()

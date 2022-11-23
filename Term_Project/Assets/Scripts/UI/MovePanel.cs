@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class MovePanel : MonoBehaviour
 {
-    public Transform startPosition;
-    public Transform endPosition;
+    [SerializeField] private Transform startPosition;
+    [SerializeField] private Transform endPosition;
 
     public static float currentTime = 0f; 
-    float lerpTime = 1.0f; // ???????? ?ð?
+    float lerpTime = 1.0f; // 판넬 내려오는 시간
 
     // Start is called before the first frame update
     void Start()
@@ -19,7 +19,6 @@ public class MovePanel : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // ????? ????? = ???? ????? ???? ?? ??? ???? ?ø?
         MoveImage();
     }
 
@@ -32,7 +31,7 @@ public class MovePanel : MonoBehaviour
             currentTime = lerpTime;
         }
 
-        // ?????????? ???
+        // 스무스 스텝 계산
         float t = currentTime / lerpTime;
         t = Mathf.Sin(t * Mathf.PI * 0.5f);
         this.transform.position = Vector3.Lerp(startPosition.position, endPosition.position, t);

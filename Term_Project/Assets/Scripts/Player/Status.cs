@@ -5,11 +5,11 @@ using UnityEngine;
 public class Status : MonoBehaviour
 {
     public static int MAX_HP = 100;
-    public static int HP = 40;
+    public static int HP = 100;
     public static bool useItem = false;
 
-    float decreaseHPTime = 0.0f;
-    float decreaseTime;
+    private float decreaseHPTime = 0.0f;
+    private float decreaseTime;
     // Start is called before the first frame update
     void Start()
     {

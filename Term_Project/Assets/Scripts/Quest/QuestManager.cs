@@ -5,20 +5,21 @@ using UnityEngine.UI;
 
 enum QuestID
 {
-    FindNPC = 0, CoinQuest, FindRabbit, FlowerCollection, 
+    NPC = 0, Coin, Rabbit, Flower, 
 } 
 
 public class QuestManager : MonoBehaviour
 {
-    public int questId;
+    [SerializeField] private int questId;
     public static int coinCnt = 0;
     public static int flowerCnt = 0;
     public static Dictionary<int, QuestData> questList;
-    public Text questNameText, itemText;
-    public GameObject[] questItem;
+    [SerializeField] private Text questNameText, itemText;
+    [SerializeField] private GameObject[] questItem;
     public bool questItemRecall = false;
     public static bool gatherArea = false;
-    public GameObject radish;
+    public static bool questClear = false;
+    [SerializeField] private GameObject radish;
 
     void Awake() // 초기화
     {
@@ -56,26 +57,29 @@ public class QuestManager : MonoBehaviour
         if (QuestClear(questId))
         {
             NextQuest();
+            questClear = false;
         }
     }
 
     bool QuestClear(int id) // id에 해당하는 퀘스트가 완료했다면 true
     {
-        if (FindNPC.findNPC)
+        if (questClear)
         {
-            FindNPC.findNPC = false;
             questItemRecall = false;
             MovePanel.currentTime = 0f; // 판넬 시간 초기화
             switch (id)
             {
-                case (int)QuestID.FindNPC: break;
-                case (int)QuestID.CoinQuest:
+                case (int)QuestID.NPC: break;
+                case (int)QuestID.Coin:
                     coinCnt = 0;
                     itemText.text = null;
                     break;
-                case (int)QuestID.FindRabbit:
+                case (int)QuestID.Rabbit:
+                    FindNPC.NPCGetRabbit = false;
                     break;
-                case (int)QuestID.FlowerCollection: break;
+                case (int)QuestID.Flower:
+                    flowerCnt = 0;
+                    break;
             }
             return true;
         }
@@ -85,20 +89,34 @@ public class QuestManager : MonoBehaviour
     void StartQuest() // 임시로 게임을 시작한지 5초가 지나면 퀘스트 부여
     {
         /* 퀘스트마다 텍스트 길이 조절 */
-        if (GetQuestID() == 1 || GetQuestID() == 2 || GetQuestID() == 3)
-        {
-            questNameText.fontSize = 14;
-            questNameText.alignment = TextAnchor.UpperCenter;
-        }
-        else questNameText.fontSize = 20;
+        CanvasOnText();
         questNameText.text = QuestName(questId);
+    }
+
+    void CanvasOnText()
+    {
+        switch (GetQuestID())
+        {
+            case 1:
+            case 2:
+            case 3:
+                questNameText.fontSize = 14;
+                questNameText.alignment = TextAnchor.UpperCenter;
+                break;
+            case 4:
+                questNameText.fontSize = 12;
+                break;
+            default: 
+                questNameText.fontSize = 20;
+                break;
+        }
     }
 
     void ControlObject() // 퀘스트와 관련된 오브젝트들 수행
     {
         if (!questItemRecall)
         {
-            if(GetQuestID() == (int)QuestID.CoinQuest)
+            if(GetQuestID() == (int)QuestID.Coin)
             {
                 int maxCoin = 10;
                 for (int i = 0; i < maxCoin; i++) Spawn();
@@ -109,18 +127,18 @@ public class QuestManager : MonoBehaviour
 
         switch (questId)
         {
-            case (int)QuestID.FindNPC: break;
-            case (int)QuestID.CoinQuest:
+            case (int)QuestID.NPC: break;
+            case (int)QuestID.Coin:
                 itemText.text = "모은 동전 갯수 : " + coinCnt;
                 break;
 
-            case (int)QuestID.FindRabbit:
+            case (int)QuestID.Rabbit:
                 if (QuestRabbit.getRadish) radish.SetActive(true); // 채소 활성화
-                if (FindNPC.isGetRabbit) radish.SetActive(false);
+                if (FindNPC.NPCGetRabbit) radish.SetActive(false);
                 itemText.text = "떨어진 채소로 유인하자.";
                 break;
 
-            case (int)QuestID.FlowerCollection:
+            case (int)QuestID.Flower:
                 itemText.text = "현재 채집한 해바라기 갯수 : " + flowerCnt;
                 break;
         }
@@ -128,8 +146,8 @@ public class QuestManager : MonoBehaviour
 
     void Spawn()
     {
-        //Instantiate(questItem[questId], new Vector3(Random.Range(-10, 10), questItem[questId].transform.position.y, Random.Range(-10, 10)), Quaternion.identity);
-        Instantiate(questItem[questId], new Vector3(Random.Range(-110, 105), 4f, Random.Range(-68, 100)), Quaternion.identity);
+        Instantiate(questItem[questId], new Vector3(Random.Range(-10, 10), questItem[questId].transform.position.y, Random.Range(-10, 10)), Quaternion.identity);
+        //Instantiate(questItem[questId], new Vector3(Random.Range(-110, 105), 4f, Random.Range(-68, 100)), Quaternion.identity);
     }
 
     void Update()
