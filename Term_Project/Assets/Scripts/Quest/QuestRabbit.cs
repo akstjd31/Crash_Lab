@@ -60,8 +60,8 @@ public class QuestRabbit : MonoBehaviour
         /* 토끼가 장애물을 바라보는 시간이 1.5초 이상이거나 타겟위치에 도착하면. */
         if (!rabbitFollowMe)
         {
-            if (Mathf.Abs(transform.position.x - randPos.x) <= 1.5f
-                && Mathf.Abs(transform.position.z - randPos.z) <= 1.5f
+            if (Mathf.Abs(transform.position.x - randPos.x) <= 2f
+                && Mathf.Abs(transform.position.z - randPos.z) <= 2f
                 || lookAtObsTime > 1.5f)
             {
                 Wait();
@@ -93,11 +93,10 @@ public class QuestRabbit : MonoBehaviour
         rabbitAnim.SetBool("isRun", true);
 
         //this.transform.LookAt(randPos);
-        if (rabbitFollowMe)
-        {
-            rabbitAgent.SetDestination(target.transform.position);
-        }
-        else rabbitAgent.SetDestination(randPos);
+
+        if (rabbitFollowMe) rabbitAgent.SetDestination(target.transform.position);
+        else if (!waitForSecond) rabbitAgent.SetDestination(randPos);
+
     }
 
     /* 토끼가 바라보는 방향에 장애물이 존재하는지  */
