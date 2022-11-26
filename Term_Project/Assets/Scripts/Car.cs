@@ -13,12 +13,20 @@ public class Car : MonoBehaviour
     public Transform frontDriverT, frontPassengerT;
     public Transform rearDriverT, rearPassengerT;
     public float maxSteerAngle = 30;
-    public float motorForce = 50;
+    public float motorForce = 100;
 
+    Rigidbody rigidbody;
+
+    private void Start()
+    {
+        rigidbody = GetComponent<Rigidbody>();
+        rigidbody.centerOfMass = Vector3.zero;
+    }
     public void GetInput()
     {
         m_horizontalInput = Input.GetAxis("Horizontal");
-        m_verticalInput = 0.5f;
+        m_verticalInput = Input.GetAxis("Vertical");
+        
         
     }
 
