@@ -11,6 +11,9 @@ public class Player : MonoBehaviour
     float h, v;
     public static float playTime = 0f;
     public static bool isRun = false;
+    public static bool isRiding = false;
+
+    [SerializeField] private GameObject carPrefab;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,15 +24,17 @@ public class Player : MonoBehaviour
     {
         playTime += Time.deltaTime;
         isGather();
+        CarInteraction();
     }
 
     void FixedUpdate()
     {
         if (!QuestFlowerCollection.getFlower)
             Movement();
+
     }
 
-    /* �÷��̾� �̵� */
+    /* 플레이어 이동 */
     private void Movement()
     {
         h = Input.GetAxis("Horizontal");
@@ -55,13 +60,29 @@ public class Player : MonoBehaviour
         }
     }
 
-    // ä���ϱ�
+    // 채집하기
     void isGather()
     {
         if (QuestManager.gatherArea && Input.GetMouseButtonDown(0) && !isRun)
         {
             playerAnim.SetTrigger("isGather");
             QuestFlowerCollection.getFlower = true;
+        }
+    }
+
+    // 차 모든 상호작용
+    void CarInteraction()
+    {
+        float xDir = this.transform.position.x - carPrefab.transform.position.x;
+        float zDir = this.transform.position.z - carPrefab.transform.position.z;
+        if (Mathf.Abs(xDir) < 5f && Mathf.Abs(zDir) < 5f && !isRiding && !Car.coolTimeStart)
+        {
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                this.gameObject.SetActive(false);
+                this.gameObject.transform.parent = carPrefab.transform;
+                isRiding = true;
+            }
         }
     }
 }

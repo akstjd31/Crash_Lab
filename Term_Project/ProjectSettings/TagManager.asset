@@ -9,6 +9,7 @@ TagManager:
   - Radish
   - NPC
   - Buff
+  - Car
   layers:
   - Default
   - TransparentFX
