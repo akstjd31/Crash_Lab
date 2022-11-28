@@ -6,7 +6,7 @@ public class QuestFlowerCollection : MonoBehaviour
 {
     GameObject player;
     float gatherTime = 0.0f;
-    public static bool getFlower = false; // Ã¤Áı ÁßÀÎÁö È®ÀÎ
+    public static bool getFlower = false; // ì±„ì§‘ ì¤‘ì¸ì§€ í™•ì¸
     // Start is called before the first frame update
     void Start()
     {
@@ -16,25 +16,25 @@ public class QuestFlowerCollection : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Ã¤Áı
+        // ì±„ì§‘
         if (getFlower)
         {
             gatherTime += Time.deltaTime;
             if (gatherTime > 1.5f)
             {
                 getFlower = false;
-                QuestManager.flowerCnt++;
+                QuestManager.Instance.flowerCnt++;
                 Destroy(gameObject);
             }
         }
     }
 
-    // Ã¤Áı°¡´ÉÇÑ Àå¼Ò ¿©ºÎ È®ÀÎ ¹×
+    // ì±„ì§‘ê°€ëŠ¥í•œ ì¥ì†Œ ì—¬ë¶€ í™•ì¸ ë°
     private void OnTriggerStay(Collider other)
     {
         if (other.gameObject == player)
         {
-            QuestManager.gatherArea = true;
+            QuestManager.Instance.gatherArea = true;
         }
 
         if (other.gameObject.tag == "Obstacle")

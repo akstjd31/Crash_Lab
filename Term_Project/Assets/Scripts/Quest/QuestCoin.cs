@@ -16,7 +16,7 @@ public class QuestCoin : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            QuestManager.coinCnt++;
+            QuestManager.Instance.coinCnt++;
             Destroy(this.gameObject);
         }
     }

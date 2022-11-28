@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class FindNPC : MonoBehaviour
 {
-    private GameObject target; // ÇÃ·¹ÀÌ¾î
-    private bool findNPC = false; // ¸» ±×´ë·Î ÇÑ¹ø¸¸ »ç¿ëÇÏ±â À§ÇÔ
+    private GameObject target; // í”Œë ˆì´ì–´
+    private bool findNPC = false; // ë§ ê·¸ëŒ€ë¡œ í•œë²ˆë§Œ ì‚¬ìš©í•˜ê¸° ìœ„í•¨
     public static bool NPCGetRabbit = false;
     // Start is called before the first frame update
     void Start()
@@ -16,25 +16,25 @@ public class FindNPC : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // ÇÃ·¹ÀÌ¾î¿Í »óÈ£ÀÛ¿ëÀÌ °¡´ÉÇÑ À§Ä¡ÀÎÁö?
+        // í”Œë ˆì´ì–´ì™€ ìƒí˜¸ì‘ìš©ì´ ê°€ëŠ¥í•œ ìœ„ì¹˜ì¸ì§€?
         if (Mathf.Abs(transform.position.x - target.transform.position.x) < 4f
             && Mathf.Abs(transform.position.z - target.transform.position.z) < 4f)
         {
-            // NPC ¹ß°ß Äù½ºÆ®
+            // NPC ë°œê²¬ í€˜ìŠ¤íŠ¸
             if (!findNPC)
             {
-                QuestManager.questClear = true;
+                QuestManager.Instance.questClear = true;
                 findNPC = true; 
             }
 
-            if (QuestManager.coinCnt == 10) QuestManager.questClear = true; // ÄÚÀÎ Äù½ºÆ®
-            if (QuestManager.flowerCnt == 1) QuestManager.questClear = true; // ÇØ¹Ù¶ó±â Äù½ºÆ®
-            if (NPCGetRabbit) QuestManager.questClear = true;
-            this.transform.LookAt(target.transform.position); // ÇÃ·¹ÀÌ¾î¿Í °¡±î¿î À§Ä¡¿¡¼­ Ç×»ó ÇÃ·¹ÀÌ¾î¸¦ ¹Ù¶óº»´Ù.
+            if (QuestManager.Instance.coinCnt == 10) QuestManager.Instance.questClear = true; // ì½”ì¸ í€˜ìŠ¤íŠ¸
+            if (QuestManager.Instance.flowerCnt == 1) QuestManager.Instance.questClear = true; // í•´ë°”ë¼ê¸° í€˜ìŠ¤íŠ¸
+            if (NPCGetRabbit) QuestManager.Instance.questClear = true;
+            this.transform.LookAt(target.transform.position); // í”Œë ˆì´ì–´ì™€ ê°€ê¹Œìš´ ìœ„ì¹˜ì—ì„œ í•­ìƒ í”Œë ˆì´ì–´ë¥¼ ë°”ë¼ë³¸ë‹¤.
         }
     }
 
-    // Àå¾Ö¹°°ú °ãÄ¡Áö ¾Ê´Â Àå¼Ò¿¡¼­ ¼ÒÈ¯
+    // ì¥ì• ë¬¼ê³¼ ê²¹ì¹˜ì§€ ì•ŠëŠ” ì¥ì†Œì—ì„œ ì†Œí™˜
     private void OnCollisionStay(Collision col)
     {
         if (col.gameObject.tag == "Obstacle")

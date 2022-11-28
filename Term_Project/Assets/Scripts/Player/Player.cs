@@ -8,12 +8,13 @@ public class Player : MonoBehaviour
     public float rotateSpeed = 10.0f;
     public const float MAX_SPEED = 10.0f;
     public Animator playerAnim;
-    float h, v;
     public static float playTime = 0f;
     public static bool isRun = false;
     public static bool isRiding = false;
 
+    float h, v;
     [SerializeField] private GameObject carPrefab;
+    [SerializeField] private GameObject miniPanel;
     // Start is called before the first frame update
     void Start()
     {
@@ -63,7 +64,7 @@ public class Player : MonoBehaviour
     // 채집하기
     void isGather()
     {
-        if (QuestManager.gatherArea && Input.GetMouseButtonDown(0) && !isRun)
+        if (QuestManager.Instance.gatherArea && Input.GetMouseButtonDown(0) && !isRun)
         {
             playerAnim.SetTrigger("isGather");
             QuestFlowerCollection.getFlower = true;
@@ -77,12 +78,24 @@ public class Player : MonoBehaviour
         float zDir = this.transform.position.z - carPrefab.transform.position.z;
         if (Mathf.Abs(xDir) < 5f && Mathf.Abs(zDir) < 5f && !isRiding && !Car.coolTimeStart)
         {
+            miniPanel.SetActive(true);
             if (Input.GetKeyDown(KeyCode.F))
             {
                 this.gameObject.SetActive(false);
                 this.gameObject.transform.parent = carPrefab.transform;
                 isRiding = true;
             }
+
+            if (QuestManager.Instance.GetQuestID() == 4 && isRiding)
+            {
+                QuestManager.Instance.questClear = true;
+            }
+        }
+        else
+        {
+            miniPanel.SetActive(false);
+            miniPanel.transform.position = SmallPanel.Instance.startPosition.position;
+            SmallPanel.Instance.currentTime = 0.0f;
         }
     }
 }

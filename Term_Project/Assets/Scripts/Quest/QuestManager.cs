@@ -3,37 +3,74 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-enum QuestID
+public enum QuestID
 {
-    NPC = 0, Coin, Rabbit, Flower, 
-} 
+    NPC = 0, Coin, Rabbit, Flower, Car, Path
+}
 
 public class QuestManager : MonoBehaviour
 {
     [SerializeField] private int questId;
-    public static int coinCnt = 0;
-    public static int flowerCnt = 0;
-    public static Dictionary<int, QuestData> questList;
-    [SerializeField] private Text questNameText, itemText;
+    public int coinCnt = 0;
+    public int flowerCnt = 0;
+    public Dictionary<int, QuestData> questList;
+    [SerializeField] private Text questNameText, itemText, timeText;
     [SerializeField] private GameObject[] questItem;
-    public bool questItemRecall = false;
-    public static bool gatherArea = false;
-    public static bool questClear = false;
+    private bool questItemRecall = false;
+    public bool gatherArea = false;
+    public bool questClear = false;
+    public float pathTime = 15.0f; // 다음 경로까지 남은 시간
+    public int pathCnt;
+
     [SerializeField] private GameObject radish;
+
+    private static QuestManager instance = null;
 
     void Awake() // 초기화
     {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
+
         questList = new Dictionary<int, QuestData>();
-        questId = 0;
+        questId = 4;
         GenerateData();
     }
 
-    void GenerateData() // 퀘스트 데이터 저장
+    void Start()
     {
+        pathCnt = PathManager.Instance.GetPathCount();
+    }
+
+    public static QuestManager Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                return null;
+            }
+            return instance;
+        }
+    }
+
+    void GenerateData() // 퀘스트 데이터 저장
+    {   
+        // Forest
         questList.Add(0, new QuestData("NPC 찾기"));
         questList.Add(1, new QuestData("10개 모아서 NPC 갖다주기"));
         questList.Add(2, new QuestData("토끼 유인해서 NPC 갖다주기"));
         questList.Add(3, new QuestData("해바라기 채집하기"));
+
+        // City
+        questList.Add(4, new QuestData("차 찾기"));
+        questList.Add(5, new QuestData("지정된 경로 통과하기"));
     }
 
     public int GetQuestID() // 현재 퀘스트의 ID를 반환
@@ -72,13 +109,18 @@ public class QuestManager : MonoBehaviour
                 case (int)QuestID.NPC: break;
                 case (int)QuestID.Coin:
                     coinCnt = 0;
-                    itemText.text = null;
                     break;
                 case (int)QuestID.Rabbit:
                     FindNPC.NPCGetRabbit = false;
                     break;
                 case (int)QuestID.Flower:
+                    itemText.text = null;
                     flowerCnt = 0;
+                    break;
+                case (int)QuestID.Car: break;
+                case (int)QuestID.Path:
+                    itemText.text = null;
+                    timeText.text = null;
                     break;
             }
             return true;
@@ -97,14 +139,27 @@ public class QuestManager : MonoBehaviour
     {
         switch (GetQuestID())
         {
-            case 1:
-            case 2:
-            case 3:
+            case (int)QuestID.NPC:
+            case (int)QuestID.Coin:
+            case (int)QuestID.Rabbit:
                 questNameText.fontSize = 14;
                 questNameText.alignment = TextAnchor.UpperCenter;
                 break;
-            case 4:
+            case (int)QuestID.Flower:
                 questNameText.fontSize = 12;
+                break;
+            case (int)QuestID.Car:
+                questNameText.fontSize = 20;
+                break;
+            case (int)QuestID.Path:
+                questNameText.fontSize = 14;
+                questNameText.alignment = TextAnchor.UpperCenter;
+
+                itemText.fontSize = 12;
+                itemText.alignment = TextAnchor.MiddleCenter;
+
+                timeText.fontSize = 12;
+                timeText.alignment = TextAnchor.LowerCenter;
                 break;
             default: 
                 questNameText.fontSize = 20;
@@ -141,12 +196,18 @@ public class QuestManager : MonoBehaviour
             case (int)QuestID.Flower:
                 itemText.text = "현재 채집한 해바라기 갯수 : " + flowerCnt;
                 break;
+            case (int)QuestID.Car: break;
+            case (int)QuestID.Path:
+                itemText.text = "남은 경로 : " + pathCnt;
+                timeText.text = "다음 경로까지 남은 시간 : " + (int)pathTime + "초";
+                pathTime -= Time.deltaTime;
+                break;
         }
     }
 
     void Spawn()
     {
-        Instantiate(questItem[questId], new Vector3(Random.Range(-10, 10), questItem[questId].transform.position.y, Random.Range(-10, 10)), Quaternion.identity);
+        if (GetQuestID() < 4) Instantiate(questItem[questId], new Vector3(Random.Range(-10, 10), questItem[questId].transform.position.y, Random.Range(-10, 10)), Quaternion.identity);
         //Instantiate(questItem[questId], new Vector3(Random.Range(-110, 105), 4f, Random.Range(-68, 100)), Quaternion.identity);
     }
 

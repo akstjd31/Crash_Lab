@@ -12,29 +12,32 @@ public class Item : MonoBehaviour
     void Update()
     {
         transform.Rotate(Vector3.up * rotateSpeed * Time.deltaTime);
+
+        if (Player.isRiding) gameObject.SetActive(false);
+        else gameObject.SetActive(true);
     }
 
-    /* ÇÃ·¹ÀÌ¾î°¡ ¾ÆÀÌÅÛÀ» È¹µæÇÏ¸é bool°ª°ú ÀÌ¸§À» Àü´ŞÇÏ°í ´Ù¸¥ °÷¿¡¼­ ´Ù½Ã ¼ÒÈ¯ */
+    /* í”Œë ˆì´ì–´ê°€ ì•„ì´í…œì„ íšë“í•˜ë©´ boolê°’ê³¼ ì´ë¦„ì„ ì „ë‹¬í•˜ê³  ë‹¤ë¥¸ ê³³ì—ì„œ ë‹¤ì‹œ ì†Œí™˜ */
     private void OnTriggerEnter(Collider other) 
     {
-       if (other.gameObject.tag == "Player")
+       if (!Player.isRiding && other.gameObject.tag == "Player")
         {
-            ItemManager.UsingItem = true;
-            ItemManager.itemName = gameObject.name.Substring(0, gameObject.name.Length - 7); 
+            ItemManager.Instance.UsingItem = true;
+            ItemManager.Instance.SetItemName(gameObject.name.Substring(0, gameObject.name.Length - 7));
 
-            if (gameObject.tag == "Food") ItemManager.foodCnt--;
-            else ItemManager.itemCnt--;
+            if (gameObject.tag == "Food") ItemManager.Instance.foodCnt--;
+            else ItemManager.Instance.itemCnt--;
             Destroy(gameObject);
         }
     }
 
-    /* ¾ÆÀÌÅÛ ¼ÒÈ¯ À§Ä¡ °áÁ¤ */
+    /* ì•„ì´í…œ ì†Œí™˜ ìœ„ì¹˜ ê²°ì • */
     private void OnTriggerStay(Collider other)
     {
         if (other.tag == "Obstacle")
         {
-            if (gameObject.tag == "Food") ItemManager.foodCnt--;
-            else ItemManager.itemCnt--;
+            if (gameObject.tag == "Food") ItemManager.Instance.foodCnt--;
+            else ItemManager.Instance.itemCnt--;
             Destroy(gameObject);
         }
     }

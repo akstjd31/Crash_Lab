@@ -14,17 +14,19 @@ enum ItemID
 
 public class ItemManager : MonoBehaviour
 {
-    public static string itemName; // 먹은 아이템의 이름을 전달받기 위한 변수
-    public static bool UsingItem = false; // 아이템사용여부
-    public static bool[] UsingItemArr; // 아이템 중복 여부 판단을 위한 변수
-    public static float[] elapsedTimeArr; // 아이템 효과 지속여부 확인을 위한 변수
-    public static int foodCnt = 0, itemCnt = 0;
+    private string itemName; // 먹은 아이템의 이름을 전달받기 위한 변수
+    public bool UsingItem = false; // 아이템사용여부
+    public bool[] UsingItemArr; // 아이템 중복 여부 판단을 위한 변수
+    public float[] elapsedTimeArr; // 아이템 효과 지속여부 확인을 위한 변수
+    public int foodCnt = 0, itemCnt = 0;
     public GameObject[] items;
-    private int numOfFood = 10; // 아이템(음식)의 수
-    private int numOfItem = 5; // 아이템(버프)의 수
+    public int numOfFood = 10; // 아이템(음식)의 수
+    public int numOfItem = 5; // 아이템(버프)의 수
 
     int pastItemIndex;
     private Buff[] buff;
+    private static ItemManager instance = null;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -39,6 +41,34 @@ public class ItemManager : MonoBehaviour
             elapsedTimeArr[i] = 0.0f;
             buff[i] = null;
         }
+
+        if (instance == null)
+        {
+            instance = this;
+
+            DontDestroyOnLoad(this.gameObject);
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
+    }
+
+    public static ItemManager Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                return null;
+            }
+            return instance;
+        }
+    }
+
+    public void SetItemName(string name)
+    {
+        this.itemName = name;
     }
 
     // Update is called once per frame
@@ -61,20 +91,20 @@ public class ItemManager : MonoBehaviour
         if (foodCnt < numOfFood)
         {
             int randFoodNumber = Random.Range((int)FoodID.HAMBURGER, (int)FoodID.ICECREAM + 1);
-            Instantiate(items[randFoodNumber], new Vector3(Random.Range(-110, 105), 4, Random.Range(-68, 100)), Quaternion.identity);
+            Instantiate(items[randFoodNumber], new Vector3(Random.Range(-15, 15), 1, Random.Range(-15, 15)), Quaternion.identity);
 
             foodCnt++;
         }
         if (itemCnt < numOfItem)
         {
             int randItemNumber = Random.Range((int)ItemID.SPEED_UP, (int)ItemID.INCREASE_MAX_HP + 1);
-            Instantiate(items[randItemNumber], new Vector3(Random.Range(-110, 105), 4, Random.Range(-68, 100)), Quaternion.identity);
+            Instantiate(items[randItemNumber], new Vector3(Random.Range(-15, 15), 1, Random.Range(-15, 15)), Quaternion.identity);
 
             itemCnt++;
         }
     }
 
-    private void CheckItem() // 전달받은 아이템 이름과 사용여부를 판단하고 팩토리 패턴으로 객체 전달
+    private void CheckItem() // 전달받은 아이템 이름과 사용여부를 판단하고 객체 전달
     {
         if (UsingItem)
         {
@@ -191,8 +221,8 @@ class Heal : Buff
 
     public override void EndRun()
     {
-        ItemManager.UsingItemArr[index] = false;
-        ItemManager.elapsedTimeArr[index] = 0.0f;
+        ItemManager.Instance.UsingItemArr[index] = false;
+        ItemManager.Instance.elapsedTimeArr[index] = 0.0f;
     }
 }
 
@@ -221,8 +251,8 @@ class SpeedUp : Buff
     public override void EndRun()
     {
         Player.moveSpeed = Player.MAX_SPEED;
-        ItemManager.UsingItemArr[index] = false;
-        ItemManager.elapsedTimeArr[index] = 0.0f;
+        ItemManager.Instance.UsingItemArr[index] = false;
+        ItemManager.Instance.elapsedTimeArr[index] = 0.0f;
     }
 }
 
@@ -249,9 +279,9 @@ class DecreaseHPSpeed : Buff
 
     public override void EndRun()
     {
-        ItemManager.UsingItem = false;
-        ItemManager.UsingItemArr[index] = false;
-        ItemManager.elapsedTimeArr[index] = 0.0f;
+        ItemManager.Instance.UsingItem = false;
+        ItemManager.Instance.UsingItemArr[index] = false;
+        ItemManager.Instance.elapsedTimeArr[index] = 0.0f;
         Status.useItem = false;
     }
 }
@@ -278,9 +308,9 @@ class IncreaseMaxHP : Buff
     }
     public override void EndRun()
     {
-        ItemManager.UsingItem = false;
-        ItemManager.UsingItemArr[index] = false;
-        ItemManager.elapsedTimeArr[index] = 0.0f;
+        ItemManager.Instance.UsingItem = false;
+        ItemManager.Instance.UsingItemArr[index] = false;
+        ItemManager.Instance.elapsedTimeArr[index] = 0.0f;
         Status.MAX_HP = 100;
 
         if (Status.HP > Status.MAX_HP) Status.HP = Status.MAX_HP;

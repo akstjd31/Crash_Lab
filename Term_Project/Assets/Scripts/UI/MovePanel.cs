@@ -8,7 +8,7 @@ public class MovePanel : MonoBehaviour
     [SerializeField] private Transform endPosition;
 
     public static float currentTime = 0f; 
-    float lerpTime = 1.0f; // ÆÇ³Ú ³»·Á¿À´Â ½Ã°£
+    float lerpTime = 1.0f; // íŒë„¬ ë‚´ë ¤ì˜¤ëŠ” ì‹œê°„
 
     // Start is called before the first frame update
     void Start()
@@ -20,6 +20,11 @@ public class MovePanel : MonoBehaviour
     void Update()
     {
         MoveImage();
+        /*
+        if (QuestManager.Instance.GetQuestID() == 5)
+        {
+            gameObject.transform.localScale = new Vector3(2, 2);
+        }*/
     }
 
     void MoveImage()
@@ -31,7 +36,7 @@ public class MovePanel : MonoBehaviour
             currentTime = lerpTime;
         }
 
-        // ½º¹«½º ½ºÅÜ °è»ê
+        // ìŠ¤ë¬´ìŠ¤ ìŠ¤í… ê³„ì‚°
         float t = currentTime / lerpTime;
         t = Mathf.Sin(t * Mathf.PI * 0.5f);
         this.transform.position = Vector3.Lerp(startPosition.position, endPosition.position, t);

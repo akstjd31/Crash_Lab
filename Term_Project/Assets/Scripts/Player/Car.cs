@@ -81,7 +81,6 @@ public class Car : MonoBehaviour
         // 초당 차의 거리를 계산하여 현재 플레이어가 내릴 수 있는지 판별
         CalDistance();
         GetOutOfTheCar();
-        Debug.Log(cooltime);
     }
 
     // 차가 이동한 거리 초단위로 계산
