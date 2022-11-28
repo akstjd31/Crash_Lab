@@ -37,7 +37,7 @@ public class SmallPanel : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-       
+       smallText.alignment = TextAnchor.MiddleCenter;
     }
 
     // Update is called once per frame

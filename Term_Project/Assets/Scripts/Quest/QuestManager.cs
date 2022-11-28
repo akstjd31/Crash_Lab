@@ -140,6 +140,9 @@ public class QuestManager : MonoBehaviour
         switch (GetQuestID())
         {
             case (int)QuestID.NPC:
+                questNameText.alignment = TextAnchor.MiddleCenter;
+                break;
+
             case (int)QuestID.Coin:
             case (int)QuestID.Rabbit:
                 questNameText.fontSize = 14;
@@ -152,13 +155,13 @@ public class QuestManager : MonoBehaviour
                 questNameText.fontSize = 20;
                 break;
             case (int)QuestID.Path:
-                questNameText.fontSize = 14;
+                questNameText.fontSize = 20;
                 questNameText.alignment = TextAnchor.UpperCenter;
 
-                itemText.fontSize = 12;
+                itemText.fontSize = 18;
                 itemText.alignment = TextAnchor.MiddleCenter;
 
-                timeText.fontSize = 12;
+                timeText.fontSize = 16;
                 timeText.alignment = TextAnchor.LowerCenter;
                 break;
             default: 
