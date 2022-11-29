@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -8,13 +9,12 @@ public class Player : MonoBehaviour
     public float rotateSpeed = 10.0f;
     public const float MAX_SPEED = 10.0f;
     public Animator playerAnim;
-    public static float playTime = 0f;
     public static bool isRun = false;
     public static bool isRiding = false;
 
     float h, v;
     [SerializeField] private GameObject carPrefab;
-    [SerializeField] private GameObject miniPanel;
+    [SerializeField] private GameObject radishOnHand;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,14 +23,17 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        playTime += Time.deltaTime;
-        isGather();
-        CarInteraction();
+        if (SceneManager.GetActiveScene().name == "City") CarInteraction();
+        else
+        {
+            FlowerInteraction();
+            GetRadish();
+        }
     }
 
     void FixedUpdate()
     {
-        if (!QuestFlowerCollection.getFlower)
+        if (!QuestFlowerCollection.diggingFlower)
             Movement();
 
     }
@@ -62,13 +65,19 @@ public class Player : MonoBehaviour
     }
 
     // 채집하기
-    void isGather()
+    void FlowerInteraction()
     {
-        if (QuestManager.Instance.gatherArea && Input.GetMouseButtonDown(0) && !isRun)
+        if (QuestFlowerCollection.gatherArea && Input.GetMouseButtonDown(0) && !isRun)
         {
             playerAnim.SetTrigger("isGather");
-            QuestFlowerCollection.getFlower = true;
+            QuestFlowerCollection.diggingFlower = true;
         }
+    }
+
+    void GetRadish()
+    {
+        if (QuestRabbit.getRadish) radishOnHand.SetActive(true);
+        else if (QuestManager.Instance.GetQuestID() > 2) radishOnHand.SetActive(false);
     }
 
     // 차 모든 상호작용
@@ -78,7 +87,7 @@ public class Player : MonoBehaviour
         float zDir = this.transform.position.z - carPrefab.transform.position.z;
         if (Mathf.Abs(xDir) < 5f && Mathf.Abs(zDir) < 5f && !isRiding && !Car.coolTimeStart)
         {
-            miniPanel.SetActive(true);
+            CanvasManager.Instance.SidePanelOn();
             if (Input.GetKeyDown(KeyCode.F))
             {
                 this.gameObject.SetActive(false);
@@ -93,9 +102,9 @@ public class Player : MonoBehaviour
         }
         else
         {
-            miniPanel.SetActive(false);
-            miniPanel.transform.position = SmallPanel.Instance.startPosition.position;
-            SmallPanel.Instance.currentTime = 0.0f;
+            CanvasManager.Instance.SidePanelOff();
+            CanvasManager.Instance.GetSidePanel().transform.position = CanvasManager.Instance.GetSidePanel().GetComponent<MovePanel>().startPosition.position;
+            CanvasManager.Instance.GetSidePanel().GetComponent<MovePanel>().currentTime = 0.0f;
         }
     }
 }

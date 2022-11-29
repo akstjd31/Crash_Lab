@@ -91,14 +91,14 @@ public class ItemManager : MonoBehaviour
         if (foodCnt < numOfFood)
         {
             int randFoodNumber = Random.Range((int)FoodID.HAMBURGER, (int)FoodID.ICECREAM + 1);
-            Instantiate(items[randFoodNumber], new Vector3(Random.Range(-15, 15), 1, Random.Range(-15, 15)), Quaternion.identity);
+            Instantiate(items[randFoodNumber], new Vector3(Random.Range(-110, 105), 4, Random.Range(-68, 100)), Quaternion.identity);
 
             foodCnt++;
         }
         if (itemCnt < numOfItem)
         {
             int randItemNumber = Random.Range((int)ItemID.SPEED_UP, (int)ItemID.INCREASE_MAX_HP + 1);
-            Instantiate(items[randItemNumber], new Vector3(Random.Range(-15, 15), 1, Random.Range(-15, 15)), Quaternion.identity);
+            Instantiate(items[randItemNumber], new Vector3(Random.Range(-110, 105), 4, Random.Range(-68, 100)), Quaternion.identity);
 
             itemCnt++;
         }

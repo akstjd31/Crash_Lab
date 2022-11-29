@@ -1,19 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+
 
 public class MovePanel : MonoBehaviour
 {
-    [SerializeField] private Transform startPosition;
-    [SerializeField] private Transform endPosition;
+    public Transform startPosition, endPosition;
 
-    public static float currentTime = 0f; 
+    public float currentTime = 0f;
     float lerpTime = 1.0f; // 판넬 내려오는 시간
 
     // Start is called before the first frame update
     void Start()
     {
-
     }
 
     // Update is called once per frame

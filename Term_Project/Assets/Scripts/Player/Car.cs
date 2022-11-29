@@ -107,7 +107,7 @@ public class Car : MonoBehaviour
             absZDir = Mathf.Abs(currentPos.z - pastPos.z);
         }
 
-        if (absXDir < 0.03f || absZDir < 0.03f)
+        if (absXDir < 0.05f || absZDir < 0.05f)
         {
             getOutCar = true;
         }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Status : MonoBehaviour
 {
@@ -20,7 +21,7 @@ public class Status : MonoBehaviour
     void Update()
     {
         decreaseHPTime += Time.deltaTime;
-        calculateHP();
+        if (SceneManager.GetActiveScene().name == "Forest") calculateHP();
     }
 
     void calculateHP() // 1초마다 1의 체력을 소모

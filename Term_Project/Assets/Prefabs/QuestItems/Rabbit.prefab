@@ -150,7 +150,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rabbitAgent: {fileID: 4486029291236859687}
-  radishPrefab: {fileID: 1037205053938530463, guid: 6fc44b62ecda2994bb8b0d569c79b09d, type: 3}
+  radishPrefab: {fileID: 7251571675659697915, guid: 70242beeab16fa1458c18e68ded4e027, type: 3}
 --- !u!195 &4486029291236859687
 NavMeshAgent:
   m_ObjectHideFlags: 0

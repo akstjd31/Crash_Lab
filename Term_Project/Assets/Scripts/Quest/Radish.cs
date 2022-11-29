@@ -9,7 +9,7 @@ public class Radish : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Rotate(Vector3.up * rotSpeed * Time.deltaTime); // ???
+        transform.Rotate(Vector3.up * rotSpeed * Time.deltaTime); 
     }
 
     // 플레이어의 무 획득
@@ -28,8 +28,8 @@ public class Radish : MonoBehaviour
     {
         if (other.tag == "Obstacle")
         {
-            gameObject.transform.position = new Vector3(Random.Range(-10, 10), 1.5f, Random.Range(-10, 10));
-            //this.gameObject.transform.position = new Vector3(Random.Range(-110, 105), 4, Random.Range(-68, 100));
+            //gameObject.transform.position = new Vector3(Random.Range(-10, 10), 1.5f, Random.Range(-10, 10));
+            this.gameObject.transform.position = new Vector3(Random.Range(-110, 105), 4, Random.Range(-68, 100));
         }
     }
 }

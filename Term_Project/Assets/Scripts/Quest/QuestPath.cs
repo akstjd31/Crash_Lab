@@ -21,10 +21,10 @@ public class QuestPath : MonoBehaviour
     {
         if (other.gameObject == player && Player.isRiding)
         {
-            QuestManager.Instance.pathCnt--;
+            PathManager.Instance.pathCnt--;
             PathManager.Instance.CalPathTime();
             PathManager.Instance.NextPath();
-            if (QuestManager.Instance.pathCnt == 0) QuestManager.Instance.questClear = true;
+            if (PathManager.Instance.pathCnt == 0) QuestManager.Instance.questClear = true;
             Destroy(gameObject);
         }
     }

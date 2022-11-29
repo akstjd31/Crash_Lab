@@ -21,14 +21,14 @@ public class FindNPC : MonoBehaviour
             && Mathf.Abs(transform.position.z - target.transform.position.z) < 4f)
         {
             // NPC 발견 퀘스트
-            if (!findNPC)
+        /*if (!findNPC)
             {
                 QuestManager.Instance.questClear = true;
-                findNPC = true; 
-            }
+                findNPC = true;
+            }*/
 
             if (QuestManager.Instance.coinCnt == 10) QuestManager.Instance.questClear = true; // 코인 퀘스트
-            if (QuestManager.Instance.flowerCnt == 1) QuestManager.Instance.questClear = true; // 해바라기 퀘스트
+            if (QuestFlowerCollection.getFlower) QuestManager.Instance.questClear = true; // 해바라기 퀘스트
             if (NPCGetRabbit) QuestManager.Instance.questClear = true;
             this.transform.LookAt(target.transform.position); // 플레이어와 가까운 위치에서 항상 플레이어를 바라본다.
         }
@@ -39,8 +39,8 @@ public class FindNPC : MonoBehaviour
     {
         if (col.gameObject.tag == "Obstacle")
         {
-            this.transform.position = new Vector3(Random.Range(-10, 10), transform.position.y, Random.Range(-10, 10));
-            //this.gameObject.transform.position = new Vector3(Random.Range(-110, 105), 4, Random.Range(-68, 100));
+            //this.transform.position = new Vector3(Random.Range(-10, 10), transform.position.y, Random.Range(-10, 10));
+            this.gameObject.transform.position = new Vector3(Random.Range(-110, 105), 4, Random.Range(-68, 100));
         }
     }
 }

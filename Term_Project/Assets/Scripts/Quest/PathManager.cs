@@ -6,6 +6,7 @@ public class PathManager : MonoBehaviour
 {
     [SerializeField] private GameObject[] path;
     private int pNum = 0;
+    public int pathCnt;
 
     private static PathManager instance = null;
 
@@ -37,7 +38,7 @@ public class PathManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        pathCnt = path.Length;
     }
 
     // Update is called once per frame

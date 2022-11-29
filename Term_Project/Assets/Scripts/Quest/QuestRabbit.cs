@@ -35,16 +35,16 @@ public class QuestRabbit : MonoBehaviour
 
     void SpawnRadish()
     {
-        //Instantiate(radishPrefab, new Vector3(Random.Range(-110, 105), 4f, Random.Range(-68, 100)), Quaternion.identity);
-        Instantiate(radishPrefab, new Vector3(Random.Range(-10, 10), 1.5f, Random.Range(-10, 10)), Quaternion.identity);
+        Instantiate(radishPrefab, new Vector3(Random.Range(-110, 105), 4f, Random.Range(-68, 100)), Quaternion.identity);
+        //Instantiate(radishPrefab, new Vector3(Random.Range(-10, 10), 1.5f, Random.Range(-10, 10)), Quaternion.identity);
     }
 
     void Settings() // 초기화
     {
         lookAtObsTime = 0.0f;
         waitTime = 0.0f;
-        randPos = new Vector3(Random.Range(-10, 10), 1, Random.Range(-10, 10)); 
-        //randPos = new Vector3(Random.Range(-55, 80), transform.position.y, Random.Range(-70, 110));
+        //randPos = new Vector3(Random.Range(-10, 10), 1, Random.Range(-10, 10)); 
+        randPos = new Vector3(Random.Range(-55, 80), transform.position.y, Random.Range(-70, 110));
         waitForSecond = false;
     }
 
@@ -117,7 +117,7 @@ public class QuestRabbit : MonoBehaviour
     {
         Vector3 vDir = this.transform.position - target.transform.position;
 
-        if (Mathf.Abs(vDir.x) < 7f && Mathf.Abs(vDir.z) < 7f)
+        if (Mathf.Abs(vDir.x) < 10f && Mathf.Abs(vDir.z) < 10f)
         {
             rabbitFollowMe = true;
         }
@@ -139,8 +139,8 @@ public class QuestRabbit : MonoBehaviour
         /* 토끼의 소환 위치 변경 */
         if (col.gameObject.tag == "Obstacle" && !isSafePos)
         {
-            gameObject.transform.position = new Vector3(Random.Range(-10, 10), 1, Random.Range(-10, 10));
-            //gameObject.transform.position = new Vector3(Random.Range(-110, 105), 4, Random.Range(-68, 100));
+            //gameObject.transform.position = new Vector3(Random.Range(-10, 10), 1, Random.Range(-10, 10));
+            this.gameObject.transform.position = new Vector3(Random.Range(-110, 105), 4, Random.Range(-68, 100));
         }
         else isSafePos = true;
     }

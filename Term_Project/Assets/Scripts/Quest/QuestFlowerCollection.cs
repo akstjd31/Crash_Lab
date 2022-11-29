@@ -6,7 +6,11 @@ public class QuestFlowerCollection : MonoBehaviour
 {
     GameObject player;
     float gatherTime = 0.0f;
-    public static bool getFlower = false; // 채집 중인지 확인
+    public static bool gatherArea = false;
+    public static bool getFlower = false;
+    public static bool diggingFlower = false;
+
+    GameObject flower;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,13 +21,14 @@ public class QuestFlowerCollection : MonoBehaviour
     void Update()
     {
         // 채집
-        if (getFlower)
+        if (diggingFlower)
         {
             gatherTime += Time.deltaTime;
             if (gatherTime > 1.5f)
             {
-                getFlower = false;
-                QuestManager.Instance.flowerCnt++;
+                diggingFlower = false;
+                gatherArea = false;
+                getFlower = true;
                 Destroy(gameObject);
             }
         }
@@ -34,13 +39,13 @@ public class QuestFlowerCollection : MonoBehaviour
     {
         if (other.gameObject == player)
         {
-            QuestManager.Instance.gatherArea = true;
+            gatherArea = true;
         }
 
         if (other.gameObject.tag == "Obstacle")
         {
-            transform.position = new Vector3(Random.Range(-15, 15), 1, Random.Range(-15, 15));
-            //this.gameObject.transform.position = new Vector3(Random.Range(-110, 105), 4, Random.Range(-68, 100));
+            //transform.position = new Vector3(Random.Range(-15, 15), 1, Random.Range(-15, 15));
+            this.gameObject.transform.position = new Vector3(Random.Range(-110, 105), 2, Random.Range(-68, 100));
         }
     }
 }

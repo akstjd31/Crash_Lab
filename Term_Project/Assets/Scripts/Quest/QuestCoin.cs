@@ -26,8 +26,8 @@ public class QuestCoin : MonoBehaviour
     {
         if (other.gameObject.tag == "Obstacle")
         {
-            this.gameObject.transform.position = new Vector3(Random.Range(-15, 15), 2, Random.Range(-15, 15));
-            //this.gameObject.transform.position = new Vector3(Random.Range(-110, 105), 4, Random.Range(-68, 100));
+            //this.gameObject.transform.position = new Vector3(Random.Range(-15, 15), 2, Random.Range(-15, 15));
+            this.gameObject.transform.position = new Vector3(Random.Range(-110, 105), 4, Random.Range(-68, 100));
         }
     }
     void RotCoin()
