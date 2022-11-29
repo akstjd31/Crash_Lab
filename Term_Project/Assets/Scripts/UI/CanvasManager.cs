@@ -6,9 +6,9 @@ using UnityEngine.SceneManagement;
 
 public class CanvasManager : MonoBehaviour
 {
-    [SerializeField] private GameObject mainPanel, sidePanel;
+    [SerializeField] private GameObject mainPanel, leftSidePanel, rightSidePanel;
     [SerializeField] private Text[] mainText;
-    [SerializeField] private Text sideText, playTimeText;
+    [SerializeField] private Text leftSideText, playTimeText;
 
     private static CanvasManager instance;
 
@@ -41,7 +41,7 @@ public class CanvasManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        sideText.alignment = TextAnchor.MiddleCenter;
+        leftSideText.alignment = TextAnchor.MiddleCenter;
     }
 
     // Update is called once per frame
@@ -50,18 +50,33 @@ public class CanvasManager : MonoBehaviour
         PlayTimeText();
         MainText();
         SideText();
-        Settings();
+        TimeSettings();
         TextSettings();
+
+        if (SceneManager.GetActiveScene().buildIndex == 2 || SceneManager.GetActiveScene().buildIndex == 3) // 게임오버 : 2, 게임클리어 : 3
+        {
+            Destroy(gameObject);
+        }
     }
 
-    public void SidePanelOff()
+    public void RightSidePanelOff()
     {
-        sidePanel.SetActive(false);
+        rightSidePanel.SetActive(false);
     }
 
-    public void SidePanelOn()
+    public void MainPanelOff()
     {
-        sidePanel.SetActive(true);
+        mainPanel.SetActive(false);
+    }
+
+    public void LeftSidePanelOff()
+    {
+        leftSidePanel.SetActive(false);
+    }
+
+    public void LeftSidePanelOn()
+    {
+        leftSidePanel.SetActive(true);
     }
 
     public GameObject GetMainPanel()
@@ -69,14 +84,14 @@ public class CanvasManager : MonoBehaviour
         return mainPanel;
     }
 
-    public GameObject GetSidePanel()
+    public GameObject GetLeftSidePanel()
     {
-        return sidePanel;
+        return leftSidePanel;
     }
 
-    public Text GetSideText()
+    public Text LeftGetSideText()
     {
-        return sideText;
+        return leftSideText;
     }
 
     void MainText()
@@ -118,9 +133,9 @@ public class CanvasManager : MonoBehaviour
     void SideText()
     {
         if (Player.isRiding)
-            sideText.text = "F키 눌러서 하차하기";
+            leftSideText.text = "F키 눌러서 하차하기";
         else if (!Player.isRiding)
-            sideText.text = "F키 눌러서 승차하기";
+            leftSideText.text = "F키 눌러서 승차하기";
     }
 
     void PlayTimeText()
@@ -133,7 +148,7 @@ public class CanvasManager : MonoBehaviour
         }
     }
 
-    void Settings()
+    void TimeSettings()
     {
         if (QuestManager.Instance.questClear) GetMainPanel().GetComponent<MovePanel>().currentTime = 0.0f;
     }

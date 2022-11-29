@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PathManager : MonoBehaviour
 {
@@ -15,11 +16,6 @@ public class PathManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(this.gameObject);
-        }
-        else
-        {
-            Destroy(this.gameObject);
         }
     }
 
@@ -47,6 +43,11 @@ public class PathManager : MonoBehaviour
         if (QuestManager.Instance.GetQuestID() == (int)QuestID.Path)
         {
             PathQuestStart();
+        }
+
+        if (SceneManager.GetActiveScene().buildIndex == 2 || SceneManager.GetActiveScene().buildIndex == 3) // 게임오버 : 2, 게임클리어 : 3
+        {
+            Destroy(gameObject);
         }
     }
     void PathQuestStart()

@@ -600,7 +600,6 @@ GameObject:
   - component: {fileID: 5727725935110194826}
   - component: {fileID: 5727725935111193674}
   - component: {fileID: 5727725935115399810}
-  - component: {fileID: 2180345036705470661}
   - component: {fileID: 3791599124510397742}
   m_Layer: 0
   m_Name: Car
@@ -689,22 +688,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.0118514, y: 1.0395924, z: 1.7937272}
   m_Center: {x: 0.000000059604645, y: 0.5277247, z: -0.0061335266}
---- !u!54 &2180345036705470661
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5727725935113460362}
-  serializedVersion: 2
-  m_Mass: 400
-  m_Drag: 0
-  m_AngularDrag: 0
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!114 &3791599124510397742
 MonoBehaviour:
   m_ObjectHideFlags: 0

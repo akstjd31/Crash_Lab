@@ -46,11 +46,6 @@ public class ItemManager : MonoBehaviour
         {
             instance = this;
 
-            DontDestroyOnLoad(this.gameObject);
-        }
-        else
-        {
-            Destroy(this.gameObject);
         }
     }
 

@@ -20,6 +20,6 @@ public class ControlBar : MonoBehaviour {
 			HPS.UpdateValue(Status.HP, Status.MAX_HP);
 		}
 
-        if (SceneManager.GetActiveScene().name == "City") gameObject.SetActive(false);
+        if (SceneManager.GetActiveScene().name != "Forest") gameObject.SetActive(false);
 	}
 }

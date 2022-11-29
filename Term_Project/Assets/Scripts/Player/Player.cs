@@ -29,6 +29,8 @@ public class Player : MonoBehaviour
             FlowerInteraction();
             GetRadish();
         }
+
+        GameOver();
     }
 
     void FixedUpdate()
@@ -64,6 +66,11 @@ public class Player : MonoBehaviour
         }
     }
 
+    void GameOver()
+    {
+        if (this.gameObject.transform.position.y <= -8.0f) SceneManager.LoadScene("Gameover");
+    }
+
     // 채집하기
     void FlowerInteraction()
     {
@@ -85,9 +92,9 @@ public class Player : MonoBehaviour
     {
         float xDir = this.transform.position.x - carPrefab.transform.position.x;
         float zDir = this.transform.position.z - carPrefab.transform.position.z;
-        if (Mathf.Abs(xDir) < 5f && Mathf.Abs(zDir) < 5f && !isRiding && !Car.coolTimeStart)
+        if (Mathf.Abs(xDir) < 5f && Mathf.Abs(zDir) < 5f && !isRiding && !CarController.coolTimeStart)
         {
-            CanvasManager.Instance.SidePanelOn();
+            CanvasManager.Instance.LeftSidePanelOn();
             if (Input.GetKeyDown(KeyCode.F))
             {
                 this.gameObject.SetActive(false);
@@ -102,9 +109,9 @@ public class Player : MonoBehaviour
         }
         else
         {
-            CanvasManager.Instance.SidePanelOff();
-            CanvasManager.Instance.GetSidePanel().transform.position = CanvasManager.Instance.GetSidePanel().GetComponent<MovePanel>().startPosition.position;
-            CanvasManager.Instance.GetSidePanel().GetComponent<MovePanel>().currentTime = 0.0f;
+            CanvasManager.Instance.LeftSidePanelOff();
+            CanvasManager.Instance.GetLeftSidePanel().transform.position = CanvasManager.Instance.GetLeftSidePanel().GetComponent<MovePanel>().startPosition.position;
+            CanvasManager.Instance.GetLeftSidePanel().GetComponent<MovePanel>().currentTime = 0.0f;
         }
     }
 }

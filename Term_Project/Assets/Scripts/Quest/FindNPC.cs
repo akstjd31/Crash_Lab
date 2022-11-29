@@ -21,11 +21,11 @@ public class FindNPC : MonoBehaviour
             && Mathf.Abs(transform.position.z - target.transform.position.z) < 4f)
         {
             // NPC 발견 퀘스트
-        /*if (!findNPC)
+            if (!findNPC)
             {
                 QuestManager.Instance.questClear = true;
                 findNPC = true;
-            }*/
+            }
 
             if (QuestManager.Instance.coinCnt == 10) QuestManager.Instance.questClear = true; // 코인 퀘스트
             if (QuestFlowerCollection.getFlower) QuestManager.Instance.questClear = true; // 해바라기 퀘스트

@@ -60,8 +60,11 @@ public class QuestManager : MonoBehaviour
 
     void NextQuest() // 다음 퀘스트로 넘어가기
     {
-        questId++;
+        if (questId == 0) questId += 4;
+        else questId++;
+
         if (questId == 4) SceneManager.LoadScene("City");
+        else if (questId == 6) SceneManager.LoadScene("Gameclear");
     }
 
     void CheckQuest() // 현재 퀘스트가 완료되었다면 다음 퀘스트로 넘어감.
@@ -139,5 +142,10 @@ public class QuestManager : MonoBehaviour
         playTime += Time.deltaTime;
         StartQuest();
         CheckQuest();
+
+        if (SceneManager.GetActiveScene().buildIndex == 2 || SceneManager.GetActiveScene().buildIndex == 3) // 게임오버 : 2
+        {
+            Destroy(gameObject);
+        }
     }
 }

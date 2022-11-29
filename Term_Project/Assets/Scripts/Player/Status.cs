@@ -22,6 +22,7 @@ public class Status : MonoBehaviour
     {
         decreaseHPTime += Time.deltaTime;
         if (SceneManager.GetActiveScene().name == "Forest") calculateHP();
+        Death();
     }
 
     void calculateHP() // 1초마다 1의 체력을 소모
@@ -33,6 +34,14 @@ public class Status : MonoBehaviour
         {
             HP -= 1;
             decreaseHPTime = .0f;
+        }
+    }
+
+    void Death()
+    {
+        if (HP <= 0)
+        {
+            SceneManager.LoadScene("Gameover");
         }
     }
 }
