@@ -6,13 +6,13 @@ using UnityEngine.SceneManagement;
 
 public class CanvasManager : MonoBehaviour
 {
-    [SerializeField] private GameObject mainPanel, leftSidePanel, rightSidePanel;
-    [SerializeField] private Text[] mainText;
-    [SerializeField] private Text leftSideText, playTimeText;
+    [SerializeField] private GameObject mainPanel, leftSidePanel, rightSidePanel;   // 각 판넬들
+    [SerializeField] private Text[] mainText;                                       // 메인 판넬 텍스트
+    [SerializeField] private Text leftSideText, playTimeText;                       // 왼쪽 사이드, 오른쪽 사이드(플레이타임) 텍스트
 
     private static CanvasManager instance;
 
-    private int minute;
+    private int minute;     // 분 계산을 위한 변수
     void Awake()
     {
         if (instance == null)
@@ -47,53 +47,47 @@ public class CanvasManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Destroying();
         PlayTimeText();
         MainText();
-        SideText();
+        LeftSideText();
         TimeSettings();
         TextSettings();
+    }
 
-        if (SceneManager.GetActiveScene().buildIndex == 2 || SceneManager.GetActiveScene().buildIndex == 3) // 게임오버 : 2, 게임클리어 : 3
+    void Destroying()
+    {
+        if (SceneManager.GetSceneByName("Gameover").isLoaded || SceneManager.GetSceneByName("Gameclaer").isLoaded)
         {
             Destroy(gameObject);
         }
     }
 
-    public void RightSidePanelOff()
-    {
-        rightSidePanel.SetActive(false);
-    }
-
-    public void MainPanelOff()
-    {
-        mainPanel.SetActive(false);
-    }
-
+    /* 왼쪽 판넬 액티브 비활성화 */
     public void LeftSidePanelOff()
     {
         leftSidePanel.SetActive(false);
     }
 
+    /* 왼쪽 판넬 액티브 활성화 */
     public void LeftSidePanelOn()
     {
         leftSidePanel.SetActive(true);
     }
 
+    /* MainPanel Getter */
     public GameObject GetMainPanel()
     {
         return mainPanel;
     }
 
+    /* leftSidePanel Getter */
     public GameObject GetLeftSidePanel()
     {
         return leftSidePanel;
     }
 
-    public Text LeftGetSideText()
-    {
-        return leftSideText;
-    }
-
+    /* 퀘스트 ID에 따른 텍스트 출력 */
     void MainText()
     {
         switch (QuestManager.Instance.GetQuestID())
@@ -130,7 +124,8 @@ public class CanvasManager : MonoBehaviour
         }
     }
 
-    void SideText()
+    /* 왼쪽 판넬 텍스트 출력 */
+    void LeftSideText()
     {
         if (Player.isRiding)
             leftSideText.text = "F키 눌러서 하차하기";
@@ -138,6 +133,7 @@ public class CanvasManager : MonoBehaviour
             leftSideText.text = "F키 눌러서 승차하기";
     }
 
+    /* 플레이 시간 텍스트 출력 및 분계산 */
     void PlayTimeText()
     {
         playTimeText.text = "플레이 시간\n" + minute + "분 " + (int)QuestManager.Instance.playTime + "초";
@@ -148,11 +144,17 @@ public class CanvasManager : MonoBehaviour
         }
     }
 
+    /* 퀘스트 클리어했을 때 판넬 시간 초기화 */
     void TimeSettings()
     {
-        if (QuestManager.Instance.questClear) GetMainPanel().GetComponent<MovePanel>().currentTime = 0.0f;
+        if (QuestManager.Instance.questClear)
+        {
+            SoundManager.Instance.PlayOnMainPanelSound();
+            GetMainPanel().GetComponent<MovePanel>().currentTime = 0.0f;
+        }
     }
 
+    /* 텍스트 세부 설정 */
     void TextSettings()
     {
         switch (QuestManager.Instance.GetQuestID())

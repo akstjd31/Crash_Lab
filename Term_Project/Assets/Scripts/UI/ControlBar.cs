@@ -20,6 +20,7 @@ public class ControlBar : MonoBehaviour {
 			HPS.UpdateValue(Status.HP, Status.MAX_HP);
 		}
 
+        // 포레스트 맵에서만 적용
         if (SceneManager.GetActiveScene().name != "Forest") gameObject.SetActive(false);
 	}
 }

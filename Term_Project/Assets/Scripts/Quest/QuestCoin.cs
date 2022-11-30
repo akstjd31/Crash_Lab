@@ -4,24 +4,25 @@ using UnityEngine;
 
 public class QuestCoin : MonoBehaviour
 {
-    float rotSpeed = 40f;
+    float rotSpeed = 40f;   // 회전 속도
     // Update is called once per frame
     void Update()
     {
         RotCoin();
     }
 
-    // 플레이어 코인 획득
+    /* 플레이어 코인 획득 */
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player")
         {
+            SoundManager.Instance.PlayOnCoinSound();
             QuestManager.Instance.coinCnt++;
             Destroy(this.gameObject);
         }
     }
 
-    // 코인 소환 위치 결정
+    /* 코인 소환 위치 결정 */
     private void OnTriggerStay(Collider other)
     {
         if (other.gameObject.tag == "Obstacle")
@@ -30,6 +31,8 @@ public class QuestCoin : MonoBehaviour
             this.gameObject.transform.position = new Vector3(Random.Range(-110, 105), 4, Random.Range(-68, 100));
         }
     }
+
+    /* 회전 */
     void RotCoin()
     {
         transform.Rotate(Vector3.up * rotSpeed * Time.deltaTime);

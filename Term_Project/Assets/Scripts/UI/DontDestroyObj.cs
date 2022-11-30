@@ -18,12 +18,12 @@ public class DontDestroyObj : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        GameOver();
+        Destroying();
     }
 
-    void GameOver()
+    void Destroying()
     {
-        if (SceneManager.GetActiveScene().buildIndex == 2 || SceneManager.GetActiveScene().buildIndex == 3) // 게임오버 : 2
+        if (SceneManager.GetSceneByName("Gameover").isLoaded || SceneManager.GetSceneByName("Gameclaer").isLoaded)
         {
             Destroy(gameObject);
         }

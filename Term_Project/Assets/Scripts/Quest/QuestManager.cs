@@ -11,19 +11,19 @@ public enum QuestID
 
 public class QuestManager : MonoBehaviour
 {
-    private int questId;
-    public int coinCnt = 0;
-    [SerializeField] private GameObject[] questItem;
-    private bool questItemRecall = false;
-    public bool questClear = false;
-    public float pathTime = 15.0f; // 다음 경로까지 남은 시간
-    public float playTime = 0.0f;
+    private int questId;                             // 퀘스트 ID
+    public int coinCnt = 0;                          // 동전 갯수
+    [SerializeField] private GameObject[] questItem; // 퀘스트에 사용되는 오브젝트
+    private bool questItemRecall = false;            // 아이템 소환
+    public bool questClear = false;                  // 퀘스트 클리어
+    public float pathTime = 15.0f;                   // 다음 경로까지 남은 시간
+    public float playTime = 0.0f;                    // 플레이 시간
 
     [SerializeField] private GameObject radish;
 
     private static QuestManager instance = null;
 
-    void Awake() // 초기화
+    void Awake() // 싱글톤
     {
         if (instance == null)
         {
@@ -53,21 +53,23 @@ public class QuestManager : MonoBehaviour
         }
     }
 
-    public int GetQuestID() // 현재 퀘스트의 ID를 반환
+    /* Getter */
+    public int GetQuestID()
     {
         return questId;
     }
 
-    void NextQuest() // 다음 퀘스트로 넘어가기
+    /* 다음 퀘스트로 넘어가기 */
+    void NextQuest()
     {
         if (questId == 0) questId += 4;
         else questId++;
-
         if (questId == 4) SceneManager.LoadScene("City");
         else if (questId == 6) SceneManager.LoadScene("Gameclear");
     }
 
-    void CheckQuest() // 현재 퀘스트가 완료되었다면 다음 퀘스트로 넘어감.
+    /* 현재 퀘스트의 클리어 유무 확인 및 다음 퀘스트 진행 */
+    void CheckQuest() // 
     {
         if (QuestClear(questId))
         {
@@ -77,14 +79,14 @@ public class QuestManager : MonoBehaviour
         }
     }
 
-    bool QuestClear(int id) // id에 해당하는 퀘스트가 완료했다면 true
+    /* id에 해당하는 퀘스트 완료 bool값 반환 + 이전 퀘스트 초기화(퀘스트 클리어가 true가 되는 것을 방지) */
+    bool QuestClear(int id) // 
     {
         if (questClear)
         {
             questItemRecall = false;
             switch (id)
             {
-                case (int)QuestID.NPC: break;
                 case (int)QuestID.Coin:
                     coinCnt = 0;
                     break;
@@ -94,20 +96,20 @@ public class QuestManager : MonoBehaviour
                 case (int)QuestID.Flower:
                     QuestFlowerCollection.getFlower = false;
                     break;
-                case (int)QuestID.Car: break;
-                case (int)QuestID.Path:break;
             }
             return true;
         }
         return false;
     }
 
-    void StartQuest() // 임시로 게임을 시작한지 5초가 지나면 퀘스트 부여
+    /* 퀘스트 시작 */
+    void StartQuest()
     {
         ControlObject();
     }
 
-    void ControlObject() // 퀘스트와 관련된 오브젝트들 수행
+    /* 퀘스트 오브젝트의 스폰 or 시간 관리 */
+    void ControlObject()
     {
         if (!questItemRecall)
         {
@@ -127,6 +129,7 @@ public class QuestManager : MonoBehaviour
         }
     }
 
+    /* 각 오브젝트 스폰 */
     void Spawn()
     {
         if (GetQuestID() < (int)QuestID.Car) //Instantiate(questItem[questId], new Vector3(Random.Range(-10, 10), questItem[questId].transform.position.y, Random.Range(-10, 10)), Quaternion.identity);
@@ -139,11 +142,17 @@ public class QuestManager : MonoBehaviour
 
     void Update()
     {
-        playTime += Time.deltaTime;
-        StartQuest();
-        CheckQuest();
+        if (pathTime <= 0.0f) SceneManager.LoadScene("Gameover"); // 통과시간이 음수가 되면 게임 오버
+        Destroying(); // 파괴
 
-        if (SceneManager.GetActiveScene().buildIndex == 2 || SceneManager.GetActiveScene().buildIndex == 3) // 게임오버 : 2
+        playTime += Time.deltaTime;
+        StartQuest(); // 퀘스트 시작
+        CheckQuest(); // 클리어 유무 확인 및 초기화
+    }
+
+    void Destroying()
+    {
+        if (SceneManager.GetSceneByName("Gameover").isLoaded || SceneManager.GetSceneByName("Gameclaer").isLoaded)
         {
             Destroy(gameObject);
         }

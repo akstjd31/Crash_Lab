@@ -5,24 +5,23 @@ using UnityEngine.AI;
 
 public class QuestRabbit : MonoBehaviour
 {
-    private float waitTime = 0.0f; // 
-    private float lookAtObsTime = 0.0f;
-    //float moveSpeed = 6f;  
-    //float rotateSpeed = 10.0f; 
-    private bool waitForSecond = false; // 대기 시간
-    private bool rabbitFollowMe = false; // 토끼가 따라오는지 여부
+    private float waitTime = 0.0f;          // 대기 시간
+    private float lookAtObsTime = 0.0f;     // 토끼가 벽을 바라보는 시간
+    private bool waitForSecond = false;     // 대기 여부 판별
+    private bool rabbitFollowMe = false;    // 토끼 따라오는지 여부 판별
 
-    public static bool isSafePos = false; // 안전한 위치에서 소환 여부
-    public static bool getRadish = false; // 채소 획득 여부
+    public static bool isSafePos = false;   // 안전한 위치에서 소환 여부
+    public static bool getRadish = false;   // 채소 획득 여부
     
-    private Animator rabbitAnim;
+    private Animator rabbitAnim;            // 토끼 애니메이션
 
-    [SerializeField] private NavMeshAgent rabbitAgent;
-    [SerializeField] private GameObject radishPrefab;
-    private GameObject target; 
+    [SerializeField] private NavMeshAgent rabbitAgent;      // 토끼 네비게이션
+    [SerializeField] private GameObject radishPrefab;       // 채소(무)
+    private GameObject target;                              // 플레이어
 
-    public static Vector3 randPos;
-    Vector3  rabbitPos;
+    public static Vector3 randPos;                          // 랜덤 좌표
+    Vector3  rabbitPos;                                     // 토끼 좌표
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -33,13 +32,15 @@ public class QuestRabbit : MonoBehaviour
         Settings();
     }
 
+    /* 토끼 소환 */
     void SpawnRadish()
     {
         Instantiate(radishPrefab, new Vector3(Random.Range(-110, 105), 4f, Random.Range(-68, 100)), Quaternion.identity);
         //Instantiate(radishPrefab, new Vector3(Random.Range(-10, 10), 1.5f, Random.Range(-10, 10)), Quaternion.identity);
     }
 
-    void Settings() // 초기화
+    /* 초기화 */
+    void Settings()
     {
         lookAtObsTime = 0.0f;
         waitTime = 0.0f;
@@ -57,7 +58,7 @@ public class QuestRabbit : MonoBehaviour
             if (!rabbitFollowMe) CheckGoalPos();
         }
 
-        /* 토끼가 장애물을 바라보는 시간이 1.5초 이상이거나 타겟위치에 도착하면. */
+        // 토끼가 장애물을 바라보는 시간이 1.5초 이상이거나 타겟위치에 도착하면
         if (!rabbitFollowMe)
         {
             if (Mathf.Abs(transform.position.x - randPos.x) <= 2f
@@ -91,6 +92,7 @@ public class QuestRabbit : MonoBehaviour
     {
         rabbitPos = transform.position;
         rabbitAnim.SetBool("isRun", true);
+        SoundManager.Instance.PlayOnRabbitWalkSound();
 
         //this.transform.LookAt(randPos);
 
@@ -112,7 +114,7 @@ public class QuestRabbit : MonoBehaviour
         }
     }
 
-    /* 일정 범위 내에 채소가 있으면 토끼가 따라온다. */
+    /* 일정 범위 내에 채소(무)가 있으면 토끼가 따라온다. */
     void InvitationRabbit()
     {
         Vector3 vDir = this.transform.position - target.transform.position;
@@ -136,7 +138,7 @@ public class QuestRabbit : MonoBehaviour
 
     private void OnCollisionStay(Collision col)
     {
-        /* 토끼의 소환 위치 변경 */
+        // 토끼 소환 위치 변경
         if (col.gameObject.tag == "Obstacle" && !isSafePos)
         {
             //gameObject.transform.position = new Vector3(Random.Range(-10, 10), 1, Random.Range(-10, 10));

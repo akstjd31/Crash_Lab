@@ -52,3 +52,24 @@ Update Mode: mergeDefaultDependencies
 
 The following packages were added:
   com.unity.2d.sprite@1.0.0
+
+=== Wed Nov 30 17:07:26 2022
+
+Packages were changed.
+Update Mode: mergeDefaultDependencies
+
+The following packages were added:
+  com.unity.2d.psdimporter@2.1.11
+  com.unity.recorder@2.5.7
+
+=== Wed Nov 30 17:38:33 2022
+
+Packages were changed.
+Update Mode: resetToDefaultDependencies
+
+The following packages were removed:
+  com.unity.2d.psdimporter@2.1.11
+  com.unity.2d.sprite@1.0.0
+  com.unity.cinemachine@2.8.9
+  com.unity.feature.development@1.0.1
+  com.unity.recorder@2.5.7

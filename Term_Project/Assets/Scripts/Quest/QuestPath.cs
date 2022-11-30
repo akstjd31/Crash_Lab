@@ -17,10 +17,12 @@ public class QuestPath : MonoBehaviour
         
     }
 
+    /* 충돌한 물체를 확인하고 경로의 개수, 시간, 다음 경로 액티브 활성화 등 작업 */
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject == player && Player.isRiding)
+        if (other.gameObject.tag == "Car" && Player.isRiding)
         {
+            SoundManager.Instance.PlayOnPathSound();
             PathManager.Instance.pathCnt--;
             PathManager.Instance.CalPathTime();
             PathManager.Instance.NextPath();

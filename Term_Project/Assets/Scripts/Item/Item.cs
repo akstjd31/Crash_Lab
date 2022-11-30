@@ -4,30 +4,37 @@ using UnityEngine;
 
 public class Item : MonoBehaviour
 {
-    float rotateSpeed = 30f;
+    float rotateSpeed = 30f;    // 회전 속도
     void Start()
     {
     }
 
     void Update()
     {
+        // 회전
         transform.Rotate(Vector3.up * rotateSpeed * Time.deltaTime);
-
-        if (Player.isRiding) gameObject.SetActive(false);
-        else gameObject.SetActive(true);
     }
 
     /* 플레이어가 아이템을 획득하면 bool값과 이름을 전달하고 다른 곳에서 다시 소환 */
     private void OnTriggerEnter(Collider other) 
     {
-       if (!Player.isRiding && other.gameObject.tag == "Player")
+       if (other.gameObject.tag == "Player")
         {
+            string itemName = gameObject.name.Substring(0, gameObject.name.Length - 7);
             ItemManager.Instance.UsingItem = true;
-            ItemManager.Instance.SetItemName(gameObject.name.Substring(0, gameObject.name.Length - 7));
+            ItemManager.Instance.SetItemName(itemName);
 
-            if (gameObject.tag == "Food") ItemManager.Instance.foodCnt--;
-            else ItemManager.Instance.itemCnt--;
-            Destroy(gameObject);
+            if (gameObject.tag == "Food")
+            {
+                SoundManager.Instance.PlayOnFoodSound();
+                ItemManager.Instance.DecreaseFoodCount();
+            }
+            else
+            {
+                SoundManager.Instance.PlayOnBuffSound(itemName);
+                ItemManager.Instance.DecreaseBuffCount();
+            }
+                Destroy(gameObject);
         }
     }
 
@@ -36,8 +43,8 @@ public class Item : MonoBehaviour
     {
         if (other.tag == "Obstacle")
         {
-            if (gameObject.tag == "Food") ItemManager.Instance.foodCnt--;
-            else ItemManager.Instance.itemCnt--;
+            if (gameObject.tag == "Food") ItemManager.Instance.DecreaseFoodCount();
+            else ItemManager.Instance.DecreaseBuffCount();
             Destroy(gameObject);
         }
     }

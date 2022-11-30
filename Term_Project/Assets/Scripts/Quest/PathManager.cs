@@ -5,9 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class PathManager : MonoBehaviour
 {
-    [SerializeField] private GameObject[] path;
-    private int pNum = 0;
-    public int pathCnt;
+    [SerializeField] private GameObject[] path;     // 경로 오브젝트
+    private int pNum = 0;                           // 경로 갯수(경로 오브젝트 인덱스 접근 사용)
+    public int pathCnt;                             // 남은 경로
 
     private static PathManager instance = null;
 
@@ -40,26 +40,36 @@ public class PathManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (QuestManager.Instance.GetQuestID() == (int)QuestID.Path)
+        Destroying();
+
+        // 차에 탑승하면 시작
+        if (QuestManager.Instance.GetQuestID() == (int)QuestID.Path) 
         {
             PathQuestStart();
-        }
+        }  
+    }
 
-        if (SceneManager.GetActiveScene().buildIndex == 2 || SceneManager.GetActiveScene().buildIndex == 3) // 게임오버 : 2, 게임클리어 : 3
+    void Destroying()
+    {
+        if (SceneManager.GetSceneByName("Gameover").isLoaded || SceneManager.GetSceneByName("Gameclaer").isLoaded) 
         {
             Destroy(gameObject);
         }
     }
+
+    /* 경로를 하나씩 활성화 */
     void PathQuestStart()
     {
         path[pNum].SetActive(true);
     }
 
+    /* 다음 경로 */
     public void NextPath()
     {
         pNum++;
     }
 
+    /* 경로마다 거리 및 통과시간 계산 */
     public void CalPathTime()
     {
         if (pNum < 1) QuestManager.Instance.pathTime = 10.0f;
@@ -69,6 +79,7 @@ public class PathManager : MonoBehaviour
         else QuestManager.Instance.pathTime = 20.0f;
     }
 
+    /* Path Getter */
     public int GetPathCount()
     {
         return path.Length;

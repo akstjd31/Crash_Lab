@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class Radish : MonoBehaviour
 {
-    float rotSpeed = 30f;
+    float rotSpeed = 30f;   // 회전 속도
 
     // Update is called once per frame
     void Update()
     {
+        // 회전
         transform.Rotate(Vector3.up * rotSpeed * Time.deltaTime); 
     }
 
@@ -18,6 +19,7 @@ public class Radish : MonoBehaviour
         if (other.tag == "Player")
         {
             QuestRabbit.getRadish = true;
+            SoundManager.Instance.PlayOnRadishSound();
             Destroy(gameObject);
         }
             

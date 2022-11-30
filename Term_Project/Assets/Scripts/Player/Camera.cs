@@ -22,21 +22,23 @@ public class Camera : MonoBehaviour
     {
         CheckTarget();
 
-
+        // 플레이어 + 오프셋
         TargetPos = new Vector3(
         Target.transform.position.x + offsetX,
         Target.transform.position.y + offsetY,
         Target.transform.position.z + offsetZ
         );
 
+        // 부드럽게 따라간다.
         transform.position = Vector3.Lerp(transform.position, TargetPos, Time.deltaTime * CameraSpeed);
     }
 
-    // 현재 카메라의 타겟이 변경되었는지 확인하는 메소드
+    // 현재 카메라의 타겟이 변경되었는지 확인하고 변경
     void CheckTarget()
     {
         if (Player.isRiding && !targetisCar)
         {
+            SoundManager.Instance.PlayOnCarStartEngineSound();
             targetisCar = true;
             cinemachine.SetActive(true);
             Target = GameObject.FindGameObjectWithTag("Car");
@@ -44,6 +46,7 @@ public class Camera : MonoBehaviour
         
         if (!Player.isRiding && targetisCar)
         {
+            SoundManager.Instance.PlayOnCarClosingDoorSound();
             this.gameObject.transform.rotation = Quaternion.Euler(new Vector3(45, 0, 0));
             targetisCar = false;
             cinemachine.SetActive(false);

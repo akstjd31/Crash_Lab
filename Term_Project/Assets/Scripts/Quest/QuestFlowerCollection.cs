@@ -4,18 +4,10 @@ using UnityEngine;
 
 public class QuestFlowerCollection : MonoBehaviour
 {
-    GameObject player;
-    float gatherTime = 0.0f;
-    public static bool gatherArea = false;
-    public static bool getFlower = false;
-    public static bool diggingFlower = false;
-
-    GameObject flower;
-    // Start is called before the first frame update
-    void Start()
-    {
-        player = GameObject.FindGameObjectWithTag("Player");
-    }
+    float gatherTime = 0.0f;                    // 채집 시간(애니메이션에 맞춰서 없얘기 위함)  
+    public static bool gatherArea = false;      // 채집 가능한 지역 판별
+    public static bool getFlower = false;       // 채집 유무
+    public static bool diggingFlower = false;   // 채집중(상태)인지 유무
 
     // Update is called once per frame
     void Update()
@@ -29,15 +21,16 @@ public class QuestFlowerCollection : MonoBehaviour
                 diggingFlower = false;
                 gatherArea = false;
                 getFlower = true;
+                SoundManager.Instance.PlayOnRadishSound();
                 Destroy(gameObject);
             }
         }
     }
 
-    // 채집가능한 장소 여부 확인 및
+    // 채집가능한 장소 여부 확인 및 소환 위치 결정
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject == player)
+        if (other.gameObject.tag == "Player")
         {
             gatherArea = true;
         }
