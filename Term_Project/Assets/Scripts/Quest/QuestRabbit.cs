@@ -11,7 +11,6 @@ public class QuestRabbit : MonoBehaviour
     private bool rabbitFollowMe = false;    // 토끼 따라오는지 여부 판별
 
     public static bool isSafePos = false;   // 안전한 위치에서 소환 여부
-    public static bool getRadish = false;   // 채소 획득 여부
     
     private Animator rabbitAnim;            // 토끼 애니메이션
 
@@ -71,7 +70,7 @@ public class QuestRabbit : MonoBehaviour
         }
 
         // 무를 획득하면 일정 범위에서 토끼를 유인
-        if (getRadish) InvitationRabbit();
+        if (Player.getRadish) InvitationRabbit();
     }
 
     void LateUpdate()

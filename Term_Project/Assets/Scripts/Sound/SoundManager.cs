@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class SoundManager : MonoBehaviour
 {
+    [SerializeField] private AudioClip forestSound;
     [SerializeField] private AudioClip[] forestWalkSound;
     
     [SerializeField] private AudioClip foodSound;
@@ -84,9 +85,9 @@ public class SoundManager : MonoBehaviour
 
     void Destroying()
     {
-        if (SceneManager.GetSceneByName("Gameover").isLoaded || SceneManager.GetSceneByName("Gameclaer").isLoaded)
+        if (SceneManager.GetSceneByName("Gameover").isLoaded || SceneManager.GetSceneByName("Gameclear").isLoaded)
         {
-            Destroy(gameObject);
+            Destroy(this.gameObject);
         }
     }
 
@@ -184,5 +185,12 @@ public class SoundManager : MonoBehaviour
     public void PlayOnPathSound()
     {
         audiosource.PlayOneShot(pathSound);
+    }
+
+    public void PlayOnForestSound()
+    {
+        audiosource.clip = forestSound;
+        audiosource.volume = 1.0f;
+        audiosource.loop = true;
     }
 }

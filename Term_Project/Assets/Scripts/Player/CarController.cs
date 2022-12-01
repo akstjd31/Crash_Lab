@@ -23,7 +23,7 @@ public class CarController : MonoBehaviour
     Rigidbody rigidbody;
     GameObject player;
 
-    private void Start()
+    void Start()
     {
         rigidbody = GetComponent<Rigidbody>();
         rigidbody.centerOfMass = Vector3.zero;

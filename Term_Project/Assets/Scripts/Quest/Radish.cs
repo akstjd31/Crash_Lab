@@ -18,7 +18,7 @@ public class Radish : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            QuestRabbit.getRadish = true;
+            Player.getRadish = true;
             SoundManager.Instance.PlayOnRadishSound();
             Destroy(gameObject);
         }

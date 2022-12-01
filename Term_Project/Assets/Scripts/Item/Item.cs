@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Item : MonoBehaviour
 {
-    float rotateSpeed = 30f;    // 회전 속도
+    private float rotateSpeed = 30f;    // 회전 속도
     void Start()
     {
     }
@@ -21,7 +21,7 @@ public class Item : MonoBehaviour
        if (other.gameObject.tag == "Player")
         {
             string itemName = gameObject.name.Substring(0, gameObject.name.Length - 7);
-            ItemManager.Instance.UsingItem = true;
+            ItemManager.Instance.usingItem = true;
             ItemManager.Instance.SetItemName(itemName);
 
             if (gameObject.tag == "Food")

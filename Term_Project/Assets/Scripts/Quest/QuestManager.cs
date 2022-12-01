@@ -62,8 +62,7 @@ public class QuestManager : MonoBehaviour
     /* 다음 퀘스트로 넘어가기 */
     void NextQuest()
     {
-        if (questId == 0) questId += 4;
-        else questId++;
+        questId++;
         if (questId == 4) SceneManager.LoadScene("City");
         else if (questId == 6) SceneManager.LoadScene("Gameclear");
     }
@@ -152,7 +151,7 @@ public class QuestManager : MonoBehaviour
 
     void Destroying()
     {
-        if (SceneManager.GetSceneByName("Gameover").isLoaded || SceneManager.GetSceneByName("Gameclaer").isLoaded)
+        if (SceneManager.GetSceneByName("Gameover").isLoaded || SceneManager.GetSceneByName("Gameclear").isLoaded)
         {
             Destroy(gameObject);
         }

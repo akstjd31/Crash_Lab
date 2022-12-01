@@ -6,9 +6,9 @@ using UnityEngine.SceneManagement;
 
 public class CanvasManager : MonoBehaviour
 {
-    [SerializeField] private GameObject mainPanel, leftSidePanel, rightSidePanel;   // 각 판넬들
-    [SerializeField] private Text[] mainText;                                       // 메인 판넬 텍스트
-    [SerializeField] private Text leftSideText, playTimeText;                       // 왼쪽 사이드, 오른쪽 사이드(플레이타임) 텍스트
+    [SerializeField] private GameObject mainPanel, leftSidePanel, rightSidePanel, miniPanel;  // 각 판넬들
+    [SerializeField] private Text[] mainText;                                                 // 메인 판넬 텍스트
+    [SerializeField] private Text leftSideText, playTimeText;                                 // 왼쪽 사이드, 오른쪽 사이드(플레이타임) 텍스트
 
     private static CanvasManager instance;
 
@@ -57,10 +57,22 @@ public class CanvasManager : MonoBehaviour
 
     void Destroying()
     {
-        if (SceneManager.GetSceneByName("Gameover").isLoaded || SceneManager.GetSceneByName("Gameclaer").isLoaded)
+        if (SceneManager.GetSceneByName("Gameover").isLoaded || SceneManager.GetSceneByName("Gameclear").isLoaded)
         {
             Destroy(gameObject);
         }
+    }
+
+    /* 미니 판넬 액티브 비활성화 */
+    public void MiniPanelOff()
+    {
+        miniPanel.SetActive(false);
+    }
+
+    /* 미니 판넬 액티브 활성화 */
+    public void MiniPanelOn()
+    {
+        miniPanel.SetActive(true);
     }
 
     /* 왼쪽 판넬 액티브 비활성화 */
@@ -79,6 +91,12 @@ public class CanvasManager : MonoBehaviour
     public GameObject GetMainPanel()
     {
         return mainPanel;
+    }
+
+    /* MiniPanel Getter */
+    public GameObject GetMiniPanel()
+    {
+        return miniPanel;
     }
 
     /* leftSidePanel Getter */

@@ -11,12 +11,7 @@ public class MovePanel : MonoBehaviour
     public float currentTime = 0f;  // 현재 시간
     float lerpTime = 1.0f;          // 판넬 내려오는 시간
 
-    bool flag = false;              // 한번만 사용될 변수
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    static bool flag = false;              // 한번만 사용될 변수
 
     // Update is called once per frame
     void Update()

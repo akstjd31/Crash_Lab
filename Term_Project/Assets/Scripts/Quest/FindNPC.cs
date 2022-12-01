@@ -29,7 +29,11 @@ public class FindNPC : MonoBehaviour
 
             if (QuestManager.Instance.coinCnt == 10) QuestManager.Instance.questClear = true; // 코인 퀘스트
             if (QuestFlowerCollection.getFlower) QuestManager.Instance.questClear = true; // 해바라기 퀘스트
-            if (NPCGetRabbit) QuestManager.Instance.questClear = true;
+            if (NPCGetRabbit)
+            {
+                Player.getRadish = false;
+                QuestManager.Instance.questClear = true;
+            }
             this.transform.LookAt(target.transform.position); // 플레이어와 가까운 위치에서 항상 플레이어를 바라본다.
         }
     }

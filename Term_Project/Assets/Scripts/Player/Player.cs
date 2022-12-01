@@ -11,15 +11,13 @@ public class Player : MonoBehaviour
     public Animator playerAnim;                         // 플레이어 애니메이션
     public static bool isRun = false;                   // 이동 여부
     public static bool isRiding = false;                // 차 탑승 여부
+    public static bool getRadish = false;
     bool flag = false;                                  // 1번 실행하기 위한 변수
 
     float h, v;                                         // horizontal, vertical
     [SerializeField] private GameObject carPrefab;      // 차 오브젝트
     [SerializeField] private GameObject radishOnHand;   // 채소(무) : 현재 손에 들고 있으며, 액티브를 비활성화 해둔 상태
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
+    [SerializeField] private GameObject flowerPrefab;   // 해바라기(꽃)
 
     // Update is called once per frame
     void Update()
@@ -83,18 +81,24 @@ public class Player : MonoBehaviour
         {
             playerAnim.SetTrigger("isGather");
             SoundManager.Instance.PlayOnFlowerSound();
+
             QuestFlowerCollection.diggingFlower = true;
+            CanvasManager.Instance.MiniPanelOff();
         }
     }
 
     /* 무를 획득하면 액티브 활성화 */
     void GetRadish()
     {
-        if (QuestRabbit.getRadish)
+        if (getRadish)
         {
             radishOnHand.SetActive(true);
+        } 
+
+        if (FindNPC.NPCGetRabbit)
+        {
+            radishOnHand.SetActive(false);
         }
-        else if (QuestManager.Instance.GetQuestID() > 2) radishOnHand.SetActive(false);
     }
 
     /* 차 상호작용 */
